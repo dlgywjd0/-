@@ -1,0 +1,355 @@
+<title>우리채 이야기 — 오늘은, 우리끼리 씁니다.</title>
+<style>
+  :root{
+    --bg:#F8F3EC; --bg-card:#FCFAF7; --bg-raised:#FFFFFF;
+    --ink:#22201D; --ink-soft:#8A8378; --ink-faint:#B7AFA1;
+    --accent:#4F7C78; --accent-soft:#DCE7E5; --wood:#B98D5E;
+    --line:rgba(34,32,29,0.12);
+    --cta-bg:#22201D; --cta-text:#F8F3EC;
+    --shadow: 0 12px 32px rgba(34,32,29,0.10);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#1B1A17; --bg-card:#242220; --bg-raised:#2B2926;
+      --ink:#F3ECE1; --ink-soft:#A79E90; --ink-faint:#6E6759;
+      --accent:#6FA39D; --accent-soft:#2E3E3B; --wood:#C9A06C;
+      --line:rgba(243,236,225,0.12);
+      --cta-bg:#F3ECE1; --cta-text:#1B1A17;
+      --shadow: 0 12px 32px rgba(0,0,0,0.35);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1B1A17; --bg-card:#242220; --bg-raised:#2B2926;
+    --ink:#F3ECE1; --ink-soft:#A79E90; --ink-faint:#6E6759;
+    --accent:#6FA39D; --accent-soft:#2E3E3B; --wood:#C9A06C;
+    --line:rgba(243,236,225,0.12);
+    --cta-bg:#F3ECE1; --cta-text:#1B1A17;
+    --shadow: 0 12px 32px rgba(0,0,0,0.35);
+    color-scheme: dark;
+  }
+  :root[data-theme="light"]{
+    --bg:#F8F3EC; --bg-card:#FCFAF7; --bg-raised:#FFFFFF;
+    --ink:#22201D; --ink-soft:#8A8378; --ink-faint:#B7AFA1;
+    --accent:#4F7C78; --accent-soft:#DCE7E5; --wood:#B98D5E;
+    --line:rgba(34,32,29,0.12);
+    --cta-bg:#22201D; --cta-text:#F8F3EC;
+    --shadow: 0 12px 32px rgba(34,32,29,0.10);
+    color-scheme: light;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic','Segoe UI',sans-serif;
+    line-height:1.7; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  h1,h2,h3{ text-wrap:balance; margin:0; }
+  p{ margin:0; }
+  a{ color:inherit; }
+  .wrap{ max-width:1180px; margin:0 auto; padding-left:24px; padding-right:24px; }
+  @media (max-width:720px){ .wrap{ padding-left:20px; padding-right:20px; } }
+
+  header{
+    position:sticky; top:0; z-index:50;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:saturate(140%) blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{ display:flex; align-items:center; justify-content:space-between; height:76px; }
+  .logo{ display:flex; align-items:baseline; gap:8px; font-weight:700; font-size:20px; letter-spacing:-.02em; }
+  .logo small{ font-weight:500; font-size:11px; color:var(--ink-soft); letter-spacing:.12em; text-transform:uppercase; }
+  .navlinks{ display:flex; gap:32px; font-size:15px; color:var(--ink-soft); }
+  .navlinks a{ text-decoration:none; position:relative; padding:4px 0; }
+  .navlinks a:hover{ color:var(--ink); }
+  .navlinks a.active{ color:var(--ink); }
+  .navlinks a::after{ content:""; position:absolute; left:0; right:100%; bottom:-2px; height:1.5px; background:var(--accent); transition:right .25s ease; }
+  .navlinks a:hover::after, .navlinks a.active::after{ right:0; }
+  @media (max-width:720px){ .navlinks{ display:none; } }
+
+  .btn{
+    appearance:none; border:none; cursor:pointer; display:inline-flex; align-items:center; gap:8px;
+    background:var(--cta-bg); color:var(--cta-text); font-family:inherit; font-weight:500; font-size:16px;
+    padding:13px 22px; border-radius:999px; transition:transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+  }
+  .btn:hover{ transform:translateY(-1px); box-shadow:var(--shadow); opacity:.92; }
+  .btn:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+  .btn.small{ padding:10px 18px; font-size:14.5px; }
+  .btn.big{ padding:18px 34px; font-size:18px; }
+
+  section{ padding:96px 0; }
+  @media (max-width:720px){ section{ padding:56px 0; } }
+  .eyebrow{ font-size:13px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; display:block; }
+
+  /* ---- story hero ---- */
+  .story-hero{ position:relative; height:min(70vh,560px); min-height:400px; overflow:hidden; }
+  #storyCanvas{ position:absolute; inset:0; width:100%; height:100%; display:block; }
+  .story-copy{
+    position:absolute; left:0; right:0; bottom:0; z-index:2; padding:0 0 52px;
+    background:linear-gradient(0deg, rgba(10,9,7,.78) 0%, rgba(10,9,7,.25) 55%, transparent 100%);
+  }
+  .story-copy .eyebrow{ color:#cfe0d4; }
+  .story-copy h1{ color:#F8F3EC; font-weight:700; font-size:clamp(28px,5vw,52px); letter-spacing:-.02em; line-height:1.3; }
+  .story-copy p{ color:#E7DFD2; margin-top:12px; font-size:clamp(14px,1.5vw,17px); max-width:48ch; }
+
+  /* ---- philosophy ---- */
+  .philosophy-list{ display:flex; flex-direction:column; gap:64px; margin-top:52px; }
+  .phil-item{ display:grid; grid-template-columns:56px 1fr; gap:24px; }
+  @media (max-width:640px){ .phil-item{ grid-template-columns:1fr; gap:10px; } }
+  .phil-item .num{ font-size:14px; font-weight:600; color:var(--ink-faint); font-variant-numeric:tabular-nums; padding-top:4px; }
+  .phil-item h3{ font-size:clamp(20px,2.6vw,26px); font-weight:700; letter-spacing:-.01em; }
+  .phil-item p{ margin-top:12px; color:var(--ink-soft); font-size:16px; max-width:58ch; }
+
+  /* ---- founder ---- */
+  .founder{ background:var(--bg-card); border:1px solid var(--line); border-radius:24px; padding:52px; margin-top:8px; }
+  @media (max-width:720px){ .founder{ padding:32px 24px; border-radius:18px; } }
+  .founder-top{ display:flex; align-items:center; gap:18px; }
+  .avatar{
+    width:56px; height:56px; border-radius:50%; flex:none;
+    background:conic-gradient(from 210deg, #4f7c78, #b98d5e, #4f7c78);
+  }
+  .founder-top .who{ font-size:15px; font-weight:600; }
+  .founder-top .role{ font-size:13px; color:var(--ink-soft); margin-top:2px; }
+  .founder blockquote{
+    margin:28px 0 0; font-size:clamp(18px,2.2vw,23px); font-weight:600; letter-spacing:-.01em;
+    line-height:1.55; color:var(--ink);
+  }
+  .founder .more{ margin-top:20px; color:var(--ink-soft); font-size:15.5px; max-width:64ch; }
+  .name-meanings{ margin-top:32px; display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  @media (max-width:720px){ .name-meanings{ grid-template-columns:repeat(2,1fr); } }
+  .name-meanings .card{ background:var(--bg-raised); border:1px solid var(--line); border-radius:14px; padding:16px; }
+  .name-meanings .card .n{ font-weight:700; font-size:15px; }
+  .name-meanings .card .d{ margin-top:6px; font-size:13px; color:var(--ink-soft); }
+
+  /* ---- scenery gallery ---- */
+  .scenery{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:48px; }
+  @media (max-width:900px){ .scenery{ grid-template-columns:repeat(2,1fr); } }
+  .scene{ border-radius:16px; overflow:hidden; background:var(--bg-card); border:1px solid var(--line); }
+  .scene .art{ aspect-ratio:4/5; }
+  .scene .cap{ padding:12px 14px 16px; font-size:13.5px; color:var(--ink-soft); }
+  .s1 .art{ background:linear-gradient(155deg,#e4efc9,#9fc27f 55%,#4c6b3f); }
+  .s2 .art{ background:linear-gradient(155deg,#cfe0c6,#3f5c36 55%,#182c17); }
+  .s3 .art{ background:linear-gradient(155deg,#e7d6b8,#8a6a45 55%,#4a3620); }
+  .s4 .art{ background:linear-gradient(155deg,#f0c9a8,#d98f5a 55%,#5c3a1e); }
+
+  .closing{
+    margin-top:88px; background:var(--cta-bg); color:var(--cta-text);
+    border-radius:28px; padding:72px 40px; text-align:center;
+  }
+  @media (max-width:640px){ .closing{ padding:52px 22px; border-radius:20px; margin-top:56px; } }
+  .closing h2{ font-size:clamp(24px,4vw,36px); font-weight:700; letter-spacing:-.01em; }
+  .closing p{ margin-top:14px; opacity:.72; font-size:16px; }
+  .closing .btn{ margin-top:28px; background:var(--cta-text); color:var(--cta-bg); }
+
+  footer{ padding:52px 0 40px; border-top:1px solid var(--line); margin-top:20px; }
+  .fgrid{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; font-size:13.5px; color:var(--ink-soft); }
+  .fgrid strong{ color:var(--ink); }
+</style>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo">우리채<small>Pool Villa</small></div>
+    <nav class="navlinks">
+      <a href="#">공간</a>
+      <a href="#" class="active">우리채 이야기</a>
+      <a href="#">이용후기</a>
+      <a href="#">이용안내</a>
+    </nav>
+    <button class="btn small">날짜 볼까요?</button>
+  </div>
+</header>
+
+<section class="story-hero">
+  <canvas id="storyCanvas"></canvas>
+  <div class="story-copy">
+    <div class="wrap" style="padding-top:120px;">
+      <span class="eyebrow">Our Story</span>
+      <h1>우리끼리 쓰는 하루</h1>
+      <p>우리채를 왜 이렇게 만들었는지, 이야기를 들려드릴게요.</p>
+    </div>
+  </div>
+</section>
+
+<section id="philosophy">
+  <div class="wrap">
+    <span class="eyebrow">Philosophy</span>
+    <h2 style="font-size:clamp(24px,3.4vw,32px); font-weight:600;">우리가 지키려는 세 가지</h2>
+    <div class="philosophy-list">
+      <div class="phil-item">
+        <div class="num">01</div>
+        <div>
+          <h3>사람이 나오지 않는 사진을 씁니다</h3>
+          <p>우리채 사진에는 사람이 없어요. 대신 나무, 물, 빛만 담았습니다. 이 공간에 오시면, 그 자리를 채우는 건 다른 누군가가 아니라 우리 팀이었으면 해서요.</p>
+        </div>
+      </div>
+      <div class="phil-item">
+        <div class="num">02</div>
+        <div>
+          <h3>동 하나에 대문 하나</h3>
+          <p>모든 동은 따로 떨어져 있어요. 체크인하고 나면, 그 대문 안쪽은 온전히 우리 팀 것이 됩니다. 옆방 발소리도, 지나가는 시선도 신경 쓸 일이 없어요.</p>
+        </div>
+      </div>
+      <div class="phil-item">
+        <div class="num">03</div>
+        <div>
+          <h3>계절을 그대로 둡니다</h3>
+          <p>마당의 나무를 일부러 다듬지 않아요. 봄엔 봄대로, 가을엔 가을대로 — 계절이 알아서 배경을 바꿔주니까요. 같은 동에 두 번 오셔도 매번 다른 풍경을 보실 수 있는 이유입니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="founder">
+  <div class="wrap">
+    <span class="eyebrow">Founder</span>
+    <div class="founder">
+      <div class="founder-top">
+        <div class="avatar"></div>
+        <div>
+          <div class="who">우리채를 만든 사람입니다</div>
+          <div class="role">Founder, 우리채</div>
+        </div>
+      </div>
+      <blockquote>"눈치 보지 않는 여행을 만들고 싶었어요."</blockquote>
+      <p class="more">
+        주말마다 어딘가로 떠나긴 하는데, 막상 가면 남의 눈치를 보게 되는 여행이 아쉬웠어요.
+        그래서 대문 하나, 마당 하나, 수영장 하나를 통째로 쓸 수 있는 곳을 만들었습니다.
+        동 이름은 그 자리에 원래 있던 것에서 따왔어요.
+      </p>
+      <div class="name-meanings">
+        <div class="card"><div class="n">소나무동</div><div class="d">소나무가 많던 자리</div></div>
+        <div class="card"><div class="n">별채동</div><div class="d">본채 옆 작은 별채였던 자리</div></div>
+        <div class="card"><div class="n">마당동</div><div class="d">마당이 가장 넓게 보이는 자리</div></div>
+        <div class="card"><div class="n">노을동</div><div class="d">노을이 유독 잘 보이는 자리</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="scenery">
+  <div class="wrap">
+    <span class="eyebrow">Around 우리채</span>
+    <h2 style="font-size:clamp(24px,3.4vw,32px); font-weight:600;">공간이 담고 있는 풍경</h2>
+    <div class="scenery">
+      <div class="scene s1"><div class="art"></div><div class="cap">사계절 마당</div></div>
+      <div class="scene s2"><div class="art"></div><div class="cap">숲으로 이어지는 산책로</div></div>
+      <div class="scene s3"><div class="art"></div><div class="cap">동과 동 사이, 적당한 거리</div></div>
+      <div class="scene s4"><div class="art"></div><div class="cap">노을이 드는 시간</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="closing">
+      <h2>우리끼리 쓸 날짜,<br>잡아볼까요?</h2>
+      <p>우리채 이야기가 마음에 드셨다면, 이제 날짜를 확인해 보세요.</p>
+      <button class="btn big">날짜 볼까요?</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap fgrid">
+    <div><strong>우리채</strong> — 오늘은, 우리끼리 씁니다.</div>
+    <div>ⓒ 2026 우리채. 기획 초안용 시안 페이지입니다.</div>
+  </div>
+</footer>
+
+<script>
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function fitCanvas(canvas) {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = Math.max(1, rect.width * dpr);
+    canvas.height = Math.max(1, rect.height * dpr);
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+    return { w: canvas.width, h: canvas.height };
+  }
+
+  function drawBokeh(ctx, w, h, spots, time) {
+    ctx.save();
+    ctx.filter = `blur(${Math.max(6, w * 0.014)}px)`;
+    spots.forEach((s) => {
+      const drift = reduceMotion ? 0 : Math.sin(time * 0.4 + s.seed) * 0.012;
+      const x = (s.x + drift) * w, y = s.y * h, r = s.r * Math.max(w, h);
+      ctx.globalAlpha = s.a ?? 0.8;
+      ctx.fillStyle = s.c;
+      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+    });
+    ctx.restore();
+    ctx.globalAlpha = 1;
+  }
+
+  // ---- story hero: dusk arrival at 우리채 — forest, a lit house, first stars ----
+  (function () {
+    const canvas = document.getElementById('storyCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w, h;
+    function resize() { ({ w, h } = fitCanvas(canvas)); }
+    resize();
+    addEventListener('resize', resize);
+
+    const bokeh = [
+      { x: .08, y: .30, r: .22, c: '#1c2a1f' }, { x: .28, y: .18, r: .20, c: '#233524' },
+      { x: .55, y: .12, r: .18, c: '#1a2a1c', a: .8 }, { x: .78, y: .22, r: .24, c: '#152218' },
+      { x: .95, y: .30, r: .20, c: '#1e2f21' }
+    ].map((s, i) => ({ ...s, seed: i * 6.6 }));
+
+    const stars = Array.from({ length: 14 }, (_, i) => ({
+      x: (i * 71 % 100) / 100, y: (i * 37 % 45) / 100, r: 0.6 + (i % 3) * 0.4, seed: i * 3.3
+    }));
+
+    function frame(t) {
+      const time = t * 0.0002;
+      const sky = ctx.createLinearGradient(0, 0, 0, h);
+      sky.addColorStop(0, '#1b2432');
+      sky.addColorStop(0.45, '#33342f');
+      sky.addColorStop(1, '#0e0d0b');
+      ctx.fillStyle = sky; ctx.fillRect(0, 0, w, h);
+
+      // stars
+      stars.forEach((s) => {
+        const tw = reduceMotion ? 0.7 : 0.5 + 0.5 * Math.sin(time * 2 + s.seed);
+        ctx.fillStyle = `rgba(255,250,235,${0.55 * tw})`;
+        ctx.beginPath(); ctx.arc(s.x * w, s.y * h * 0.5, s.r, 0, Math.PI * 2); ctx.fill();
+      });
+
+      drawBokeh(ctx, w, h, bokeh, time);
+
+      // house silhouette, right-of-center
+      const hx = w * 0.56, hy = h * 0.52, hw = w * 0.30, hh = h * 0.22;
+      ctx.fillStyle = '#0c0b09';
+      ctx.fillRect(hx, hy, hw, hh);
+      ctx.fillRect(hx - hw * 0.04, hy - hh * 0.12, hw * 1.08, hh * 0.14); // roof band
+
+      // lit windows
+      [0.18, 0.48, 0.78].forEach((f, i) => {
+        const flick = reduceMotion ? 1 : 0.85 + 0.15 * Math.sin(time * 2.4 + i);
+        const wx = hx + hw * f, wy = hy + hh * 0.28, ww2 = hw * 0.16, wh2 = hh * 0.42;
+        const glow = ctx.createRadialGradient(wx + ww2 / 2, wy + wh2 / 2, 0, wx + ww2 / 2, wy + wh2 / 2, hw * 0.22);
+        glow.addColorStop(0, `rgba(255,196,120,${0.5 * flick})`);
+        glow.addColorStop(1, 'rgba(255,196,120,0)');
+        ctx.fillStyle = glow;
+        ctx.fillRect(hx - hw * 0.3, hy - hh * 0.3, hw * 1.6, hh * 1.6);
+        ctx.fillStyle = `rgba(255,214,150,${0.9 * flick})`;
+        ctx.fillRect(wx, wy, ww2, wh2);
+      });
+
+      // ground
+      const floor = ctx.createLinearGradient(0, h * 0.78, 0, h);
+      floor.addColorStop(0, 'rgba(6,8,6,0)');
+      floor.addColorStop(1, 'rgba(6,8,6,.7)');
+      ctx.fillStyle = floor; ctx.fillRect(0, h * 0.78, w, h * 0.22);
+
+      if (!reduceMotion) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+</script>
