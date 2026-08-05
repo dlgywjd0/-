@@ -115,66 +115,19 @@
   .btn.small{ padding:10px 18px; font-size:14.5px; }
   .btn.big{ padding:18px 34px; font-size:18px; }
 
-  /* ---------- Hero: 숲속 독채·풀 무드 신 ---------- */
+  /* ---------- Hero: 3분할 실사 무드 그리드 ---------- */
   .hero{ position:relative; }
-  .heroscene{
-    position:relative; overflow:hidden;
-    height:min(88vh, 760px); min-height:500px;
-    background:#0e1710;
+  .hero-grid{
+    display:grid; grid-template-columns:1fr 1fr 1fr;
+    height:min(80vh, 660px); min-height:440px;
+    gap:2px; background:var(--ink);
   }
-  @media (max-width:820px){ .heroscene{ height:78vh; min-height:460px; } }
-
-  #forestCanvas{ position:absolute; inset:0; width:100%; height:100%; display:block; z-index:1; }
-
-  .architecture{
-    position:absolute; z-index:2;
-    right:7%; top:22%; width:42%; max-width:500px; height:38%;
-    display:flex; flex-direction:column;
-    filter:drop-shadow(0 26px 34px rgba(0,0,0,.5));
+  @media (max-width:820px){
+    .hero-grid{ grid-template-columns:1fr; grid-template-rows:1fr 1fr 1fr; height:auto; }
+    .hero-grid > .panel{ height:32vh; min-height:230px; }
   }
-  .architecture .roof{
-    height:13%; background:linear-gradient(180deg,#0b0b0a,#1d1a16);
-    border-radius:1px 14px 1px 1px;
-  }
-  .architecture .glass{
-    flex:1; position:relative; overflow:hidden;
-    background:linear-gradient(180deg, rgba(255,197,122,.32), rgba(52,39,26,.6));
-  }
-  .architecture .glass::before{
-    content:""; position:absolute; inset:0;
-    background-image:repeating-linear-gradient(90deg, rgba(8,7,6,.85) 0 3px, transparent 3px calc(100%/6));
-  }
-  .architecture .glass .glow{
-    position:absolute; left:10%; right:34%; bottom:8%; height:38%;
-    background:radial-gradient(60% 100% at 30% 100%, rgba(255,197,122,.6), transparent 72%);
-    filter:blur(7px);
-  }
-  .architecture .base{ height:9%; background:linear-gradient(180deg,#15130f,#0a0908); }
-
-  .poolstrip{ position:absolute; left:0; right:0; top:61%; height:13%; z-index:2; }
-  .poolstrip::before{
-    content:""; position:absolute; left:0; right:0; top:0; height:2px;
-    background:rgba(230,238,228,.45); z-index:1;
-  }
-  #poolCanvas{ position:absolute; inset:0; width:100%; height:100%; display:block; }
-
-  .deck{
-    position:absolute; left:0; right:0; bottom:0; height:23%; z-index:3;
-    background:
-      repeating-linear-gradient(90deg, rgba(0,0,0,.12) 0 2px, transparent 2px 62px),
-      linear-gradient(180deg,#8a6a45,#5b4227 65%,#3a2b1a);
-  }
-
-  .fg-blur{ position:absolute; bottom:-10%; width:48%; height:62%; z-index:4; filter:blur(20px); pointer-events:none; }
-  .fg-blur.left{ left:-8%; background:radial-gradient(58% 70% at 30% 70%, #0d1f12 0%, transparent 72%); }
-  .fg-blur.right{ right:-9%; background:radial-gradient(58% 70% at 70% 60%, #0a1a0f 0%, transparent 72%); }
-
-  @media (max-width:820px){ .architecture{ right:4%; top:19%; width:52%; height:30%; } }
-  @media (max-width:560px){
-    .architecture{ right:3%; top:14%; width:62%; height:24%; }
-    .poolstrip{ top:56%; height:14%; }
-    .deck{ height:28%; }
-  }
+  .panel{ position:relative; overflow:hidden; background:#141814; }
+  .panel canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; }
 
   .hero-copy{
     position:absolute; left:0; right:0; bottom:0; z-index:5;
@@ -182,7 +135,7 @@
     background:linear-gradient(0deg, rgba(9,10,8,.8) 0%, rgba(9,10,8,.3) 55%, transparent 100%);
     pointer-events:none;
   }
-  .hero-copy .wrap{ padding-top:150px; }
+  .hero-copy .wrap{ padding-top:120px; }
   .hero-copy h1{
     color:#F8F3EC; font-weight:700;
     font-size:clamp(28px, 5vw, 56px);
@@ -320,25 +273,18 @@
 </header>
 
 <section class="hero">
-  <div class="heroscene">
-    <canvas id="forestCanvas"></canvas>
-    <div class="architecture">
-      <div class="roof"></div>
-      <div class="glass"><div class="glow"></div></div>
-      <div class="base"></div>
-    </div>
-    <div class="poolstrip"><canvas id="poolCanvas"></canvas></div>
-    <div class="deck"></div>
-    <div class="fg-blur left"></div>
-    <div class="fg-blur right"></div>
-    <div class="hero-copy">
-      <div class="wrap">
-        <h1>오늘은,<br>우리끼리 씁니다.</h1>
-        <p>독채라서 가능해요. 수영장도, 마당도, 다 우리 팀만요.</p>
-      </div>
-    </div>
-    <div class="scrolldown"><span>SCROLL</span><span class="bar"></span></div>
+  <div class="hero-grid">
+    <div class="panel"><canvas id="poolCanvas"></canvas></div>
+    <div class="panel"><canvas id="houseCanvas"></canvas></div>
+    <div class="panel"><canvas id="bbqCanvas"></canvas></div>
   </div>
+  <div class="hero-copy">
+    <div class="wrap">
+      <h1>오늘은,<br>우리끼리 씁니다.</h1>
+      <p>독채라서 가능해요. 수영장도, 마당도, 다 우리 팀만요.</p>
+    </div>
+  </div>
+  <div class="scrolldown"><span>SCROLL</span><span class="bar"></span></div>
 </section>
 
 <section id="values">
@@ -557,161 +503,216 @@
     return { w: canvas.width, h: canvas.height };
   }
 
-  // ---- forest canopy scene: dense trees + dappled light, referencing the mood
-  // of a dark-timber pool villa tucked into a hillside forest ----
-  (function () {
-    const canvas = document.getElementById('forestCanvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let w, h;
+  // ---- shared: soft out-of-focus "bokeh" circles behind an in-focus foreground ----
+  // (built from canvas primitives + blur filter, not hand-authored paths)
+  function drawBokeh(ctx, w, h, spots, time) {
+    ctx.save();
+    ctx.filter = `blur(${Math.max(6, w * 0.018)}px)`;
+    spots.forEach((s) => {
+      const drift = reduceMotion ? 0 : Math.sin(time * 0.5 + s.seed) * 0.015;
+      const x = (s.x + drift) * w;
+      const y = s.y * h;
+      const r = s.r * Math.max(w, h);
+      ctx.globalAlpha = s.a ?? 0.8;
+      ctx.fillStyle = s.c;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.restore();
+    ctx.globalAlpha = 1;
+  }
 
-    // fixed (non-random) trunk layout so the scene is stable across reloads
-    const trunks = [
-      { x: .04, top: .0, bot: .82, w: .012, bow: 10, tone: 0 },
-      { x: .10, top: .04, bot: .90, w: .020, bow: -14, tone: 1 },
-      { x: .17, top: .0, bot: .78, w: .010, bow: 8, tone: 0 },
-      { x: .24, top: .08, bot: .95, w: .026, bow: -18, tone: 1 },
-      { x: .30, top: .02, bot: .70, w: .009, bow: 12, tone: 0 },
-      { x: .37, top: .0, bot: .86, w: .015, bow: -8, tone: 1 },
-      { x: .44, top: .06, bot: .74, w: .011, bow: 14, tone: 0 },
-      { x: .52, top: .0, bot: .60, w: .018, bow: -10, tone: 1 },
-      { x: .60, top: .1, bot: .55, w: .010, bow: 9, tone: 0 },
-      { x: .70, top: .0, bot: .52, w: .014, bow: -12, tone: 1 },
-      { x: .80, top: .06, bot: .50, w: .009, bow: 10, tone: 0 },
-      { x: .90, top: .0, bot: .48, w: .016, bow: -9, tone: 1 },
-      { x: .97, top: .04, bot: .46, w: .011, bow: 8, tone: 0 }
-    ];
-
-    const canopy = [
-      { x: .10, y: .10, r: .34, c: '#243c29' }, { x: .34, y: .04, r: .30, c: '#33512f' },
-      { x: .58, y: .10, r: .32, c: '#213a25' }, { x: .82, y: .06, r: .34, c: '#2c4830' },
-      { x: .0, y: .30, r: .26, c: '#1a2e1e' }, { x: .96, y: .28, r: .28, c: '#1c3120' },
-      { x: .22, y: .22, r: .22, c: '#3d5c37', a: .55 }, { x: .68, y: .20, r: .24, c: '#3a5934', a: .5 }
-    ];
-
-    const lights = Array.from({ length: 9 }, (_, i) => ({
-      x: .06 + (i * .107) % .9,
-      y: .06 + ((i * 53) % 40) / 100,
-      r: .05 + (i % 3) * .025,
-      seed: i * 12.7
-    }));
-
-    function resize() { ({ w, h } = fitCanvas(canvas)); }
-    resize();
-    addEventListener('resize', resize);
-
-    function draw(t) {
-      const time = t * 0.00018;
-
-      // sky-to-shadow backdrop
-      const sky = ctx.createLinearGradient(0, 0, 0, h);
-      sky.addColorStop(0, '#cfe0c6');
-      sky.addColorStop(0.28, '#7a9a71');
-      sky.addColorStop(0.6, '#2f4a34');
-      sky.addColorStop(1, '#101d13');
-      ctx.fillStyle = sky;
-      ctx.fillRect(0, 0, w, h);
-
-      // canopy clusters (soft, no hand-authored paths — just circles)
-      canopy.forEach((c) => {
-        const g = ctx.createRadialGradient(c.x * w, c.y * h, 0, c.x * w, c.y * h, c.r * Math.max(w, h));
-        g.addColorStop(0, c.c);
-        g.addColorStop(1, 'rgba(0,0,0,0)');
-        ctx.globalAlpha = c.a ?? 0.85;
-        ctx.fillStyle = g;
-        ctx.beginPath();
-        ctx.arc(c.x * w, c.y * h, c.r * Math.max(w, h), 0, Math.PI * 2);
-        ctx.fill();
-      });
-      ctx.globalAlpha = 1;
-
-      // dappled sunlight, gently drifting
-      ctx.globalCompositeOperation = 'lighten';
-      lights.forEach((l) => {
-        const flicker = reduceMotion ? 0.5 : 0.5 + 0.5 * Math.sin(time * 1.4 + l.seed);
-        const x = (l.x + (reduceMotion ? 0 : 0.01 * Math.sin(time * 0.6 + l.seed))) * w;
-        const y = l.y * h;
-        const r = l.r * Math.max(w, h);
-        const g = ctx.createRadialGradient(x, y, 0, x, y, r);
-        g.addColorStop(0, `rgba(255,244,214,${0.18 * flicker})`);
-        g.addColorStop(1, 'rgba(255,244,214,0)');
-        ctx.fillStyle = g;
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, Math.PI * 2);
-        ctx.fill();
-      });
-      ctx.globalCompositeOperation = 'source-over';
-
-      // tree trunks
-      trunks.forEach((tr) => {
-        const x = tr.x * w;
-        const yTop = tr.top * h;
-        const yBot = tr.bot * h;
-        const bow = tr.bow;
-        const grad = ctx.createLinearGradient(0, yTop, 0, yBot);
-        const base = tr.tone ? '17,26,17' : '10,17,11';
-        grad.addColorStop(0, `rgba(${base},0)`);
-        grad.addColorStop(0.15, `rgba(${base},0.9)`);
-        grad.addColorStop(0.85, `rgba(${base},0.9)`);
-        grad.addColorStop(1, `rgba(${base},0)`);
-        ctx.strokeStyle = grad;
-        ctx.lineWidth = tr.w * w;
-        ctx.lineCap = 'round';
-        ctx.beginPath();
-        ctx.moveTo(x, yTop);
-        ctx.quadraticCurveTo(x + bow, (yTop + yBot) / 2, x, yBot);
-        ctx.stroke();
-      });
-
-      // ground shadow so the architecture/pool/deck layers sit into it
-      const floor = ctx.createLinearGradient(0, h * 0.55, 0, h);
-      floor.addColorStop(0, 'rgba(6,10,7,0)');
-      floor.addColorStop(1, 'rgba(6,10,7,0.55)');
-      ctx.fillStyle = floor;
-      ctx.fillRect(0, h * 0.55, w, h * 0.45);
-
-      if (!reduceMotion) requestAnimationFrame(draw);
-    }
-    requestAnimationFrame(draw);
-  })();
-
-  // ---- pool water: slow emerald shimmer, matched to the forest's teal-green tone ----
+  // ---- Panel 1: 수영장 — 물빛 위 와인잔, 볕이 스며드는 오전 풍경 ----
   (function () {
     const canvas = document.getElementById('poolCanvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let w, h;
-
     function resize() { ({ w, h } = fitCanvas(canvas)); }
     resize();
     addEventListener('resize', resize);
 
-    const blobs = Array.from({ length: 6 }, (_, i) => ({ seed: i * 37.13, r: 0.16 + (i % 3) * 0.05 }));
+    const bokeh = [
+      { x: .12, y: .18, r: .22, c: '#4c6b3f' }, { x: .38, y: .10, r: .16, c: '#5c7d46', a: .7 },
+      { x: .68, y: .16, r: .20, c: '#3f5c36' }, { x: .90, y: .22, r: .18, c: '#587a44', a: .75 },
+      { x: .25, y: .32, r: .14, c: '#6a8a4f', a: .6 }, { x: .78, y: .34, r: .15, c: '#3a5530', a: .65 },
+      { seed: 1 }
+    ].map((s, i) => ({ ...s, seed: s.seed ?? i * 5.3 }));
 
     function frame(t) {
       const time = t * 0.00022;
-      ctx.clearRect(0, 0, w, h);
-      const grad = ctx.createLinearGradient(0, 0, 0, h);
-      grad.addColorStop(0, '#3e6560');
-      grad.addColorStop(0.5, '#264a45');
-      grad.addColorStop(1, '#132c28');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, w, h);
+      // sky-lit forest backdrop, upper 60%
+      const sky = ctx.createLinearGradient(0, 0, 0, h * 0.62);
+      sky.addColorStop(0, '#dfe9c9');
+      sky.addColorStop(1, '#3c5a37');
+      ctx.fillStyle = sky;
+      ctx.fillRect(0, 0, w, h * 0.62);
+      drawBokeh(ctx, w, h, bokeh, time);
 
+      // soft morning sun flare, upper-right
+      const flareX = w * 0.82, flareY = h * 0.14;
+      const flare = ctx.createRadialGradient(flareX, flareY, 0, flareX, flareY, w * 0.32);
+      flare.addColorStop(0, 'rgba(255,250,225,0.9)');
+      flare.addColorStop(0.25, 'rgba(255,240,190,0.35)');
+      flare.addColorStop(1, 'rgba(255,240,190,0)');
+      ctx.fillStyle = flare;
+      ctx.fillRect(0, 0, w, h * 0.62);
+
+      // pool water, lower 38%
+      const water = ctx.createLinearGradient(0, h * 0.6, 0, h);
+      water.addColorStop(0, '#598079');
+      water.addColorStop(0.5, '#2f5651');
+      water.addColorStop(1, '#173430');
+      ctx.fillStyle = water;
+      ctx.fillRect(0, h * 0.6, w, h * 0.4);
       ctx.globalCompositeOperation = 'lighten';
-      blobs.forEach((b) => {
-        const x = (0.5 + 0.46 * Math.sin(time * 0.9 + b.seed)) * w;
-        const y = (0.5 + 0.46 * Math.cos(time * 0.7 + b.seed * 1.3)) * h;
-        const r = b.r * Math.max(w, h);
-        const g = ctx.createRadialGradient(x, y, 0, x, y, r);
-        g.addColorStop(0, 'rgba(255,255,255,0.18)');
+      for (let i = 0; i < 4; i++) {
+        const sx = (0.2 + i * 0.22 + (reduceMotion ? 0 : 0.03 * Math.sin(time * 0.8 + i))) * w;
+        const sy = h * (0.62 + 0.16 * (i % 2));
+        const g = ctx.createRadialGradient(sx, sy, 0, sx, sy, w * 0.1);
+        g.addColorStop(0, 'rgba(255,255,255,0.22)');
         g.addColorStop(1, 'rgba(255,255,255,0)');
         ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(sx, sy, w * 0.1, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = 'rgba(235,240,228,.5)';
+      ctx.fillRect(0, h * 0.6, w, 2);
+
+      // two wine glasses resting on the coping — sharp foreground silhouette
+      [w * 0.38, w * 0.5].forEach((gx) => {
+        const gy = h * 0.6;
+        ctx.strokeStyle = 'rgba(255,255,255,.85)';
+        ctx.lineWidth = Math.max(1.4, w * 0.003);
         ctx.beginPath();
-        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.ellipse(gx, gy - h * 0.05, w * 0.024, h * 0.045, 0, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(gx, gy - h * 0.005);
+        ctx.lineTo(gx, gy);
+        ctx.stroke();
+        ctx.fillStyle = 'rgba(122,20,30,.55)';
+        ctx.beginPath();
+        ctx.ellipse(gx, gy - h * 0.06, w * 0.02, h * 0.02, 0, 0, Math.PI);
         ctx.fill();
       });
-      ctx.globalCompositeOperation = 'source-over';
+
+      if (!reduceMotion) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+
+  // ---- Panel 2: 독채 — 창가 자리, 흐린 숲을 배경으로 둔 실내 디테일 ----
+  (function () {
+    const canvas = document.getElementById('houseCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w, h;
+    function resize() { ({ w, h } = fitCanvas(canvas)); }
+    resize();
+    addEventListener('resize', resize);
+
+    const bokeh = [
+      { x: .20, y: .28, r: .20, c: '#4a6a3d' }, { x: .55, y: .18, r: .18, c: '#5c7d46', a: .7 },
+      { x: .82, y: .30, r: .22, c: '#3c5934' }, { x: .40, y: .40, r: .14, c: '#6a8a4f', a: .55 }
+    ].map((s, i) => ({ ...s, seed: i * 7.1 }));
+
+    function frame(t) {
+      const time = t * 0.0002;
+      // warm interior wall tone
+      ctx.fillStyle = '#efe7d6';
+      ctx.fillRect(0, 0, w, h);
+
+      // window opening
+      const wx = w * 0.12, wy = h * 0.08, ww = w * 0.76, wh = h * 0.62;
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(wx, wy, ww, wh);
+      ctx.clip();
+      const forest = ctx.createLinearGradient(0, wy, 0, wy + wh);
+      forest.addColorStop(0, '#cddcb8');
+      forest.addColorStop(1, '#3d5a36');
+      ctx.fillStyle = forest;
+      ctx.fillRect(wx, wy, ww, wh);
+      drawBokeh(ctx, w, h, bokeh, time);
+      ctx.restore();
+
+      // window frame + mullions
+      ctx.strokeStyle = 'rgba(40,32,24,.9)';
+      ctx.lineWidth = Math.max(3, w * 0.012);
+      ctx.strokeRect(wx, wy, ww, wh);
+      ctx.lineWidth = Math.max(2, w * 0.006);
+      ctx.beginPath(); ctx.moveTo(wx + ww * 0.5, wy); ctx.lineTo(wx + ww * 0.5, wy + wh); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(wx, wy + wh * 0.55); ctx.lineTo(wx + ww, wy + wh * 0.55); ctx.stroke();
+
+      // warm pendant-light glow, upper window
+      const glow = ctx.createRadialGradient(wx + ww * 0.28, wy + wh * 0.18, 0, wx + ww * 0.28, wy + wh * 0.18, w * 0.16);
+      glow.addColorStop(0, 'rgba(255,205,130,.5)');
+      glow.addColorStop(1, 'rgba(255,205,130,0)');
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, 0, w, h);
+
+      // foreground tabletop edge, in sharp focus
+      const table = ctx.createLinearGradient(0, h * 0.82, 0, h);
+      table.addColorStop(0, '#a9784a');
+      table.addColorStop(1, '#6e4c2c');
+      ctx.fillStyle = table;
+      ctx.fillRect(0, h * 0.82, w, h * 0.18);
+      ctx.fillStyle = 'rgba(0,0,0,.18)';
+      ctx.fillRect(0, h * 0.82, w, h * 0.02);
+
+      if (!reduceMotion) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+
+  // ---- Panel 3: 바베큐 — 노을 무렵, 숯불 위 그릴 클로즈업 ----
+  (function () {
+    const canvas = document.getElementById('bbqCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w, h;
+    function resize() { ({ w, h } = fitCanvas(canvas)); }
+    resize();
+    addEventListener('resize', resize);
+
+    const bokeh = [
+      { x: .15, y: .16, r: .20, c: '#2a2018', a: .8 }, { x: .5, y: .1, r: .18, c: '#3a2a1c', a: .7 },
+      { x: .85, y: .18, r: .22, c: '#241a12', a: .8 }
+    ].map((s, i) => ({ ...s, seed: i * 9.4 }));
+
+    function frame(t) {
+      const time = t * 0.00025;
+      const dusk = ctx.createLinearGradient(0, 0, 0, h);
+      dusk.addColorStop(0, '#3a2620');
+      dusk.addColorStop(0.6, '#201512');
+      dusk.addColorStop(1, '#120c0a');
+      ctx.fillStyle = dusk;
+      ctx.fillRect(0, 0, w, h * 0.7);
+      drawBokeh(ctx, w, h, bokeh, time);
+
+      // ember glow rising from the grill
+      const flicker = reduceMotion ? 1 : 0.85 + 0.15 * Math.sin(time * 3.2);
+      const ember = ctx.createRadialGradient(w * 0.5, h * 0.78, 0, w * 0.5, h * 0.78, w * 0.42 * flicker);
+      ember.addColorStop(0, 'rgba(255,150,60,.85)');
+      ember.addColorStop(0.4, 'rgba(200,80,30,.4)');
+      ember.addColorStop(1, 'rgba(200,80,30,0)');
+      ctx.fillStyle = ember;
+      ctx.fillRect(0, h * 0.35, w, h * 0.65);
+
+      // grill grate, sharp foreground lines
+      ctx.strokeStyle = 'rgba(10,8,6,.9)';
+      ctx.lineWidth = Math.max(3, h * 0.014);
+      for (let i = 0; i < 6; i++) {
+        const y = h * (0.68 + i * 0.055);
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(w, y - h * 0.01);
+        ctx.stroke();
+      }
+      ctx.fillStyle = 'rgba(0,0,0,.35)';
+      ctx.fillRect(0, h * 0.94, w, h * 0.06);
 
       if (!reduceMotion) requestAnimationFrame(frame);
     }
