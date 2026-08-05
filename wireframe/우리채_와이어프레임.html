@@ -1,0 +1,368 @@
+<title>우리채 — 와이어프레임 (설계 단계)</title>
+<style>
+  :root{
+    --page-bg:#EDEDEA;
+    --paper:#FFFFFF;
+    --chrome:#E2E2DE;
+    --block:#E7E7E3;
+    --block-strong:#DADAD5;
+    --border:#B7B7AF;
+    --ink:#26261F;
+    --ink-soft:#6B6B60;
+    --bar:#D3D3CC;
+    --note:#5C7285;
+    --note-bg:#5C728514;
+    --note-border:#5C728555;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --page-bg:#1B1B18; --paper:#242420; --chrome:#2C2C27;
+      --block:#33332C; --block-strong:#3D3D34; --border:#55554A;
+      --ink:#EDEDE6; --ink-soft:#9B9B8E; --bar:#454539;
+      --note:#8FB0C9; --note-bg:#8FB0C91A; --note-border:#8FB0C955;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --page-bg:#1B1B18; --paper:#242420; --chrome:#2C2C27;
+    --block:#33332C; --block-strong:#3D3D34; --border:#55554A;
+    --ink:#EDEDE6; --ink-soft:#9B9B8E; --bar:#454539;
+    --note:#8FB0C9; --note-bg:#8FB0C91A; --note-border:#8FB0C955;
+    color-scheme: dark;
+  }
+  :root[data-theme="light"]{
+    --page-bg:#EDEDEA; --paper:#FFFFFF; --chrome:#E2E2DE;
+    --block:#E7E7E3; --block-strong:#DADAD5; --border:#B7B7AF;
+    --ink:#26261F; --ink-soft:#6B6B60; --bar:#D3D3CC;
+    --note:#5C7285; --note-bg:#5C728514; --note-border:#5C728555;
+    color-scheme: light;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{
+    background:var(--page-bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    line-height:1.5;
+  }
+  .shell{ display:flex; min-height:100vh; }
+
+  /* ---- sidebar ---- */
+  .sidebar{
+    width:236px; flex:none; padding:28px 16px; border-right:1px solid var(--border);
+    position:sticky; top:0; height:100vh; overflow-y:auto;
+  }
+  .sidebar h1{ font-size:15px; font-weight:700; margin:0 8px 4px; letter-spacing:-.01em; }
+  .sidebar .sub{ font-size:12px; color:var(--ink-soft); margin:0 8px 20px; }
+  .tab{
+    display:flex; flex-direction:column; gap:1px; width:100%; text-align:left;
+    background:none; border:none; cursor:pointer; padding:9px 8px; border-radius:8px;
+    color:var(--ink); font-family:inherit;
+  }
+  .tab:hover{ background:var(--block); }
+  .tab.active{ background:var(--block-strong); }
+  .tab .name{ font-size:13.5px; font-weight:600; }
+  .tab .path{ font-size:11px; color:var(--ink-soft); font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+
+  /* ---- main ---- */
+  main{ flex:1; padding:32px 40px 80px; min-width:0; }
+  .frame-title{ display:flex; align-items:baseline; gap:10px; margin-bottom:6px; }
+  .frame-title h2{ font-size:20px; margin:0; }
+  .frame-title .path{ font-size:12.5px; color:var(--ink-soft); font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .frame-desc{ font-size:13.5px; color:var(--ink-soft); max-width:62ch; margin-bottom:22px; }
+
+  .browser{
+    max-width:900px; background:var(--paper); border:1px solid var(--border); border-radius:12px;
+    overflow:hidden; box-shadow:0 1px 0 var(--border);
+  }
+  .browser .chrome{
+    background:var(--chrome); padding:9px 12px; display:flex; align-items:center; gap:8px;
+    border-bottom:1px solid var(--border);
+  }
+  .chrome .dot{ width:8px; height:8px; border-radius:50%; background:var(--border); }
+  .chrome .url{
+    flex:1; background:var(--paper); border:1px solid var(--border); border-radius:6px;
+    padding:3px 10px; font-size:11px; color:var(--ink-soft); font-family:ui-monospace,monospace;
+  }
+  .canvas{ padding:16px; display:flex; flex-direction:column; gap:12px; }
+
+  /* wireframe primitives */
+  .wf-block{
+    background:var(--block); border:1.5px dashed var(--border); border-radius:6px;
+    display:flex; align-items:center; justify-content:center; position:relative;
+    color:var(--ink-soft); font-size:11.5px; padding:8px;
+  }
+  .wf-block.strong{ background:var(--block-strong); }
+  .wf-row{ display:flex; gap:12px; }
+  .wf-col{ display:flex; flex-direction:column; gap:12px; }
+  .grow{ flex:1; min-width:0; }
+
+  .wf-img{ background:
+    repeating-linear-gradient(45deg, var(--block) 0 8px, var(--block-strong) 8px 16px);
+    border:1.5px dashed var(--border);
+  }
+  .wf-btn{
+    background:var(--paper); border:1.5px solid var(--ink-soft); border-radius:999px;
+    padding:6px 14px; font-size:11px; color:var(--ink); align-self:flex-start; flex:none;
+  }
+  .wf-btn.solid{ background:var(--ink-soft); color:var(--paper); border-color:var(--ink-soft); }
+  .wf-bar{ height:9px; background:var(--bar); border-radius:3px; }
+  .wf-bar.w60{ width:60%; } .wf-bar.w80{ width:80%; } .wf-bar.w40{ width:40%; } .wf-bar.w30{ width:30%; } .wf-bar.w90{width:90%;}
+  .wf-textblock{ display:flex; flex-direction:column; gap:7px; padding:4px 2px; }
+
+  .header-wf{ display:flex; align-items:center; justify-content:space-between; padding:10px 14px; }
+  .header-wf .brand{ display:flex; align-items:center; gap:6px; }
+  .header-wf .brand .box{ width:22px; height:22px; border:1.5px solid var(--ink-soft); border-radius:4px; }
+  .header-wf .brand span{ font-size:11.5px; font-weight:700; color:var(--ink); }
+  .header-wf nav{ display:flex; gap:14px; font-size:11px; color:var(--ink-soft); }
+  .header-wf .right{ display:flex; align-items:center; gap:8px; }
+  .icon-dot{ width:16px; height:16px; border:1.5px solid var(--ink-soft); border-radius:4px; }
+
+  .footer-wf{ display:flex; justify-content:space-between; padding:10px 14px; font-size:10.5px; color:var(--ink-soft); border-top:1.5px dashed var(--border); }
+
+  .note{
+    display:flex; gap:8px; align-items:flex-start; font-size:12px; color:var(--note);
+    background:var(--note-bg); border:1px solid var(--note-border); border-radius:8px;
+    padding:8px 10px; margin-top:4px;
+  }
+  .note b{ font-family:ui-monospace,monospace; font-size:11px; flex:none; }
+
+  .callout{
+    position:absolute; top:-9px; left:-9px; width:18px; height:18px; border-radius:50%;
+    background:var(--note); color:var(--paper); font-size:10.5px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .notes-list{ max-width:900px; margin-top:18px; display:flex; flex-direction:column; gap:8px; }
+
+  .page{ display:none; }
+  .page.active{ display:block; }
+
+  @media (max-width:780px){
+    .shell{ flex-direction:column; }
+    .sidebar{ position:relative; height:auto; width:100%; border-right:none; border-bottom:1px solid var(--border); }
+    main{ padding:24px 16px 60px; }
+  }
+</style>
+
+<div class="shell">
+  <aside class="sidebar">
+    <h1>우리채 와이어프레임</h1>
+    <p class="sub">설계(Designing) 단계 — 페이지별 기본 구조</p>
+    <div id="tabs"></div>
+  </aside>
+  <main id="pages"></main>
+</div>
+
+<script>
+  const pages = [
+    {
+      id: 'home', name: '홈', path: '/',
+      desc: '이미 3단계에서 실제 프로토타입까지 만든 페이지라, 구조 참고용으로만 축약해 실었습니다.',
+      notes: [
+        ['①', '헤더의 예약 버튼은 모든 페이지에서 위치·문구 고정 — 전환 경로 단일화'],
+        ['②', '공간소개는 4개만 미리보기, "더 보기"로 /space 목록 유도 — 홈 체류시간 확보']
+      ],
+      body: `
+        <div class="wf-block header-wf" style="position:relative">
+          <span class="callout">①</span>
+          <div class="brand"><div class="box"></div><span>우리채</span></div>
+          <nav><span>공간</span><span>하루</span><span>이용안내</span></nav>
+          <div class="right"><div class="icon-dot"></div><div class="icon-dot"></div><div class="wf-btn solid">날짜 볼까요?</div></div>
+        </div>
+        <div class="wf-row" style="height:120px">
+          <div class="wf-block wf-img grow"></div>
+          <div class="wf-block wf-img grow"></div>
+          <div class="wf-block wf-img grow"></div>
+        </div>
+        <div class="wf-block strong" style="height:70px">Hero 헤드라인 + 서브카피 (이미지 위 오버레이)</div>
+        <div class="wf-row">
+          <div class="wf-col grow"><div class="wf-block wf-img" style="height:90px"></div><div class="wf-bar w60"></div><div class="wf-bar w80"></div></div>
+          <div class="wf-col grow"><div class="wf-block wf-img" style="height:90px"></div><div class="wf-bar w60"></div><div class="wf-bar w80"></div></div>
+          <div class="wf-col grow"><div class="wf-block wf-img" style="height:90px"></div><div class="wf-bar w60"></div><div class="wf-bar w80"></div></div>
+        </div>
+        <div class="wf-block" style="height:40px; position:relative"><span class="callout">②</span>공간 소개 미리보기 4카드 + [더 보기 →]</div>
+        <div class="wf-block" style="height:64px">하루의 흐름 타임라인 (스크롤 시 배경색 전환)</div>
+        <div class="wf-block strong" style="height:70px">이용안내 요약 카드 6개 + 최하단 반전 배경 CTA</div>
+        <div class="wf-block footer-wf"><span>우리채</span><span>ⓒ 2026</span></div>
+      `
+    },
+    {
+      id: 'space', name: '공간소개', path: '/space',
+      desc: '4개 동을 한눈에 비교하고 상세로 넘어가게 하는 목록 페이지.',
+      notes: [
+        ['①', '카드 포맷은 홈의 미리보기 카드와 동일 컴포넌트 재사용 — 새로 디자인하지 않음'],
+        ['②', '정렬/필터는 처음엔 넣지 않음. 동이 4개뿐이라 과설계 — 나중에 동이 늘면 추가']
+      ],
+      body: `
+        <div class="wf-block header-wf">
+          <div class="brand"><div class="box"></div><span>우리채</span></div>
+          <nav><span>공간</span><span>하루</span><span>이용안내</span></nav>
+          <div class="right"><div class="icon-dot"></div><div class="icon-dot"></div><div class="wf-btn solid">날짜 볼까요?</div></div>
+        </div>
+        <div class="wf-textblock" style="padding-top:10px">
+          <div class="wf-bar w30" style="height:18px"></div>
+          <div class="wf-bar w60"></div>
+        </div>
+        <div class="wf-row">
+          ${['소나무동','별채동','마당동','노을동'].map(()=>`
+            <div class="wf-col grow" style="position:relative">
+              <div class="wf-block wf-img" style="height:130px; aspect-ratio:4/5;"></div>
+              <div class="wf-bar w60"></div>
+              <div class="wf-bar w90" style="height:6px"></div>
+              <div class="wf-btn">자세히 보기</div>
+            </div>`).join('')}
+          <span class="callout" style="position:relative; top:-140px; left:4px;">①</span>
+        </div>
+        <div class="wf-block footer-wf"><span>우리채</span><span>ⓒ 2026</span></div>
+      `
+    },
+    {
+      id: 'detail', name: '객실 상세', path: '/space/pine 외 3',
+      desc: '4개 동 모두 같은 템플릿을 쓰고, 이미지·스펙·설명만 바뀝니다.',
+      notes: [
+        ['①', '가격/CTA를 스크롤 없이 보이는 첫 화면에 배치 — 상세 설명을 다 읽지 않아도 예약 가능'],
+        ['②', '이 동 전용 이용안내는 전문이 아니라 체크리스트 요약만 — 전문은 /guide로 링크']
+      ],
+      body: `
+        <div class="wf-block header-wf">
+          <div class="brand"><div class="box"></div><span>우리채</span></div>
+          <nav><span>공간</span><span>하루</span><span>이용안내</span></nav>
+          <div class="right"><div class="icon-dot"></div><div class="icon-dot"></div><div class="wf-btn solid">날짜 볼까요?</div></div>
+        </div>
+        <div class="wf-bar w40" style="height:12px"></div>
+        <div class="wf-row" style="position:relative">
+          <span class="callout">①</span>
+          <div class="wf-block wf-img grow" style="height:220px"></div>
+          <div class="wf-col" style="width:220px; flex:none">
+            <div class="wf-bar w60" style="height:16px"></div>
+            <div class="wf-bar w80"></div>
+            <div class="wf-bar w60"></div>
+            <div class="wf-bar w90"></div>
+            <div class="wf-btn solid">날짜 볼까요?</div>
+          </div>
+        </div>
+        <div class="wf-row" style="height:70px">
+          <div class="wf-block wf-img grow"></div><div class="wf-block wf-img grow"></div>
+          <div class="wf-block wf-img grow"></div><div class="wf-block wf-img grow"></div>
+        </div>
+        <div class="wf-row">
+          <div class="wf-block wf-img grow" style="height:90px"></div>
+          <div class="wf-col grow"><div class="wf-bar w90"></div><div class="wf-bar w80"></div><div class="wf-bar w60"></div></div>
+        </div>
+        <div class="wf-block" style="height:56px; position:relative"><span class="callout">②</span>이 동 이용안내 요약 체크리스트</div>
+        <div class="wf-block" style="height:48px">다른 동 둘러보기 (카드 3개, 가로 스크롤)</div>
+        <div class="wf-block footer-wf"><span>우리채</span><span>ⓒ 2026</span></div>
+      `
+    },
+    {
+      id: 'guide', name: '이용안내', path: '/guide',
+      desc: '홈의 요약 카드와 달리, 여기는 전문(全文)을 다룹니다.',
+      notes: [
+        ['①', 'FAQ는 아코디언으로 접어 스캔 부담을 줄임'],
+        ['②', '페이지 맨 끝에도 예약 CTA — 규정을 다 읽고 안심한 사용자를 놓치지 않음']
+      ],
+      body: `
+        <div class="wf-block header-wf">
+          <div class="brand"><div class="box"></div><span>우리채</span></div>
+          <nav><span>공간</span><span>하루</span><span>이용안내</span></nav>
+          <div class="right"><div class="icon-dot"></div><div class="icon-dot"></div><div class="wf-btn solid">날짜 볼까요?</div></div>
+        </div>
+        <div class="wf-bar w30" style="height:18px; margin-top:8px"></div>
+        <div class="wf-row">
+          ${['체크인/아웃','인원','반려동물','바베큐','수영장','주차'].map(()=>`<div class="wf-block grow" style="height:64px"></div>`).join('')}
+        </div>
+        <div class="wf-block" style="height:110px; position:relative"><span class="callout">①</span>자주 묻는 질문 (아코디언 목록)</div>
+        <div class="wf-block strong" style="height:56px; position:relative"><span class="callout">②</span>예약 전 마지막 확인 CTA</div>
+        <div class="wf-block footer-wf"><span>우리채</span><span>ⓒ 2026</span></div>
+      `
+    },
+    {
+      id: 'location', name: '오시는길', path: '/location',
+      desc: 'GNB에는 없고 푸터 링크로만 연결되는 페이지 — 예약 결정 이후 필요한 정보라서.',
+      notes: [
+        ['①', '지도가 항상 왼쪽 큰 영역 — 텍스트보다 위치 확인이 먼저'],
+        ['②', '내비게이션 검색어(예: "우리채 소나무동")를 복사 버튼으로 제공 — 오시는 길 문의 전화를 줄이는 장치']
+      ],
+      body: `
+        <div class="wf-block header-wf">
+          <div class="brand"><div class="box"></div><span>우리채</span></div>
+          <nav><span>공간</span><span>하루</span><span>이용안내</span></nav>
+          <div class="right"><div class="icon-dot"></div><div class="icon-dot"></div><div class="wf-btn solid">날짜 볼까요?</div></div>
+        </div>
+        <div class="wf-bar w30" style="height:18px; margin-top:8px"></div>
+        <div class="wf-row" style="position:relative">
+          <span class="callout">①</span>
+          <div class="wf-block wf-img grow" style="height:220px">지도</div>
+          <div class="wf-col" style="width:220px; flex:none; position:relative">
+            <span class="callout" style="top:60px">②</span>
+            <div class="wf-bar w90"></div>
+            <div class="wf-btn">주소 복사</div>
+            <div class="wf-bar w80"></div>
+            <div class="wf-bar w60"></div>
+          </div>
+        </div>
+        <div class="wf-row" style="height:70px">
+          <div class="wf-block grow"></div><div class="wf-block grow"></div><div class="wf-block grow"></div>
+        </div>
+        <div class="wf-block footer-wf"><span>우리채</span><span>ⓒ 2026</span></div>
+      `
+    },
+    {
+      id: 'booking', name: '예약', path: '/booking',
+      desc: '헤더 버튼("날짜 볼까요?")이 도착하는 최종 목적지.',
+      notes: [
+        ['①', '동 선택 탭을 캘린더보다 먼저 — "어느 방인지"부터 정하게 함'],
+        ['②', 'CTA 문구는 2단계에서 정한 "우리끼리 쓸 날짜, 잡아볼까요?" 그대로 사용']
+      ],
+      body: `
+        <div class="wf-block header-wf">
+          <div class="brand"><div class="box"></div><span>우리채</span></div>
+          <nav><span>공간</span><span>하루</span><span>이용안내</span></nav>
+          <div class="right"><div class="icon-dot"></div><div class="icon-dot"></div><div class="wf-btn solid">날짜 볼까요?</div></div>
+        </div>
+        <div class="wf-block strong" style="height:44px; margin-top:6px; position:relative"><span class="callout">①</span>동 선택 탭: 소나무동 · 별채동 · 마당동 · 노을동</div>
+        <div class="wf-block" style="height:220px">캘린더 (월별, 예약가능/마감 표시)</div>
+        <div class="wf-row">
+          <div class="wf-block wf-img" style="width:100px; height:76px; flex:none"></div>
+          <div class="wf-col grow"><div class="wf-bar w60"></div><div class="wf-bar w40"></div></div>
+        </div>
+        <div class="wf-block strong" style="height:56px; position:relative"><span class="callout">②</span>[예약 문의하기] — 우리끼리 쓸 날짜, 잡아볼까요?</div>
+        <div class="wf-block footer-wf"><span>우리채</span><span>ⓒ 2026</span></div>
+      `
+    }
+  ];
+
+  const tabsEl = document.getElementById('tabs');
+  const pagesEl = document.getElementById('pages');
+
+  pages.forEach((p, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (i === 0 ? ' active' : '');
+    btn.dataset.id = p.id;
+    btn.innerHTML = `<span class="name">${p.name}</span><span class="path">${p.path}</span>`;
+    btn.addEventListener('click', () => show(p.id));
+    tabsEl.appendChild(btn);
+
+    const section = document.createElement('section');
+    section.className = 'page' + (i === 0 ? ' active' : '');
+    section.id = 'page-' + p.id;
+    section.innerHTML = `
+      <div class="frame-title"><h2>${p.name}</h2><span class="path">${p.path}</span></div>
+      <p class="frame-desc">${p.desc}</p>
+      <div class="browser">
+        <div class="chrome"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="url">woorichae.com${p.path.startsWith('/') ? p.path : ''}</div></div>
+        <div class="canvas">${p.body}</div>
+      </div>
+      <div class="notes-list">
+        ${p.notes.map(n => `<div class="note"><b>${n[0]}</b><span>${n[1]}</span></div>`).join('')}
+      </div>
+    `;
+    pagesEl.appendChild(section);
+  });
+
+  function show(id) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.id === id));
+    document.querySelectorAll('.page').forEach(s => s.classList.toggle('active', s.id === 'page-' + id));
+  }
+</script>
