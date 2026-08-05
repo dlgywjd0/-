@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>예약 — 우리채</title>
+<meta name="description" content="동을 고르고, 남는 날짜를 확인한 다음 예약 문의를 남겨보세요.">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .booking-shell{ margin-top:32px; }
+  .room-tabs{ display:flex; gap:10px; flex-wrap:wrap; }
+  .room-tabs .chip{ flex:1; min-width:120px; text-align:center; }
+
+  .cal-card{ background:var(--bg-card); border:1px solid var(--line); border-radius:20px; padding:28px 26px; margin-top:24px; }
+  .cal-head{ display:flex; align-items:center; justify-content:space-between; }
+  .cal-head .ym{ font-size:18px; font-weight:700; }
+  .cal-head .navbtn{ appearance:none; border:1px solid var(--line); background:var(--bg-raised); border-radius:50%; width:36px; height:36px; cursor:pointer; color:var(--ink); font-size:16px; }
+  .cal-head .navbtn:hover{ border-color:var(--accent); }
+  .cal-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin-top:20px; }
+  .cal-dow{ text-align:center; font-size:12px; color:var(--ink-soft); padding-bottom:6px; }
+  .cal-day{
+    aspect-ratio:1/1; border-radius:10px; display:flex; align-items:center; justify-content:center;
+    font-size:14px; cursor:pointer; border:1.5px solid transparent; background:var(--bg-raised); position:relative;
+  }
+  .cal-day.empty{ visibility:hidden; cursor:default; }
+  .cal-day.booked{ color:var(--ink-faint); text-decoration:line-through; cursor:not-allowed; background:transparent; }
+  .cal-day.available:hover{ border-color:var(--accent); }
+  .cal-day.selected{ background:var(--accent); color:#fff; }
+  .cal-legend{ display:flex; gap:18px; margin-top:18px; font-size:13px; color:var(--ink-soft); }
+  .cal-legend .dot{ display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:6px; }
+  .cal-legend .dot.free{ background:var(--accent); }
+  .cal-legend .dot.full{ background:var(--ink-faint); }
+
+  .selection-bar{
+    margin-top:24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px;
+    background:var(--bg-card); border:1px solid var(--line); border-radius:16px; padding:18px 22px;
+  }
+  .selection-bar .sum{ font-size:15px; }
+  .selection-bar .sum b{ font-weight:700; }
+</style>
+</head>
+<body>
+
+<header id="site-header">
+  <div class="wrap nav">
+    <a class="logo" href="index.html">우리채<small>Pool Villa</small></a>
+    <nav class="navlinks">
+      <a href="space.html">공간</a>
+      <a href="about.html">우리채 이야기</a>
+      <a href="review.html">이용후기</a>
+      <a href="guide.html">이용안내</a>
+    </nav>
+    <a class="btn small" href="booking.html">날짜 볼까요?</a>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Booking</span>
+      <h2>우리끼리 쓸 날짜, 잡아볼까요?</h2>
+      <p>동을 먼저 고르고, 캘린더에서 남는 날짜를 확인해 주세요.</p>
+    </div>
+
+    <div class="booking-shell">
+      <div class="room-tabs" id="room-tabs" data-multi="false">
+        <button class="chip" data-room="pine">소나무동</button>
+        <button class="chip" data-room="annex">별채동</button>
+        <button class="chip" data-room="yard">마당동</button>
+        <button class="chip" data-room="sunset">노을동</button>
+      </div>
+
+      <div class="cal-card">
+        <div class="cal-head">
+          <button class="navbtn" id="prev-month" aria-label="이전 달">‹</button>
+          <div class="ym" id="cal-ym"></div>
+          <button class="navbtn" id="next-month" aria-label="다음 달">›</button>
+        </div>
+        <div class="cal-grid" id="cal-dow"></div>
+        <div class="cal-grid" id="cal-grid"></div>
+        <div class="cal-legend">
+          <span><span class="dot free"></span>예약 가능</span>
+          <span><span class="dot full"></span>마감</span>
+        </div>
+      </div>
+
+      <div class="selection-bar">
+        <div class="sum" id="selection-summary">동과 날짜를 선택해 주세요.</div>
+        <a class="btn" id="inquire-btn" href="guide.html#contact">예약 문의하기</a>
+      </div>
+    </div>
+
+    <div class="closing">
+      <h2>날짜가 마음에 드셨나요?<br>바로 문의를 남겨보세요.</h2>
+      <p>실제 확정은 문의 답변을 통해 안내드려요.</p>
+      <a class="btn big" href="guide.html#contact">예약 문의하기</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap fgrid">
+    <div>
+      <strong>우리채</strong> — 오늘은, 우리끼리 씁니다.<br>
+      <span class="flinks" style="margin-top:10px;">
+        <a href="space.html">공간</a>
+        <a href="about.html">우리채 이야기</a>
+        <a href="review.html">이용후기</a>
+        <a href="guide.html">이용안내</a>
+        <a href="location.html">오시는길</a>
+      </span>
+    </div>
+    <div>ⓒ 2026 우리채. 기획 초안용 시안 페이지입니다.</div>
+  </div>
+</footer>
+
+<script src="js/common.js"></script>
+<script>
+  const roomNames = { pine: '소나무동', annex: '별채동', yard: '마당동', sunset: '노을동' };
+  const dowLabels = ['일', '월', '화', '수', '목', '금', '토'];
+
+  const state = {
+    room: new URLSearchParams(location.search).get('room') || 'pine',
+    year: new Date().getFullYear(),
+    month: new Date().getMonth(), // 0-11
+    selectedDate: null,
+  };
+  if (!roomNames[state.room]) state.room = 'pine';
+
+  // room tabs 초기 선택 반영
+  document.querySelectorAll('#room-tabs .chip').forEach((c) => {
+    c.classList.toggle('on', c.dataset.room === state.room);
+  });
+
+  // 데모용 결정론적 "마감" 배정 — 실제 예약 시스템 연동 전까지의 임시 표시
+  function isBooked(room, y, m, d) {
+    const seed = room.length * 7 + y + (m + 1) * 3 + d * 5;
+    return seed % 5 === 0; // 대략 20%가 마감으로 보이도록
+  }
+
+  function renderDow() {
+    const dow = document.getElementById('cal-dow');
+    dow.innerHTML = dowLabels.map((l) => `<div class="cal-dow">${l}</div>`).join('');
+  }
+
+  function renderCalendar() {
+    document.getElementById('cal-ym').textContent = `${state.year}년 ${state.month + 1}월`;
+    const grid = document.getElementById('cal-grid');
+    const firstDow = new Date(state.year, state.month, 1).getDay();
+    const daysInMonth = new Date(state.year, state.month + 1, 0).getDate();
+    const today = new Date(); today.setHours(0,0,0,0);
+
+    let html = '';
+    for (let i = 0; i < firstDow; i++) html += `<div class="cal-day empty"></div>`;
+    for (let d = 1; d <= daysInMonth; d++) {
+      const thisDate = new Date(state.year, state.month, d);
+      const past = thisDate < today;
+      const booked = !past && isBooked(state.room, state.year, state.month, d);
+      const key = `${state.year}-${state.month}-${d}`;
+      const selected = state.selectedDate === key;
+      let cls = 'cal-day';
+      if (past || booked) cls += ' booked';
+      else cls += ' available';
+      if (selected) cls += ' selected';
+      html += `<div class="${cls}" data-key="${key}" data-day="${d}">${d}</div>`;
+    }
+    grid.innerHTML = html;
+
+    grid.querySelectorAll('.cal-day.available').forEach((el) => {
+      el.addEventListener('click', () => {
+        state.selectedDate = el.dataset.key;
+        renderCalendar();
+        updateSummary();
+      });
+    });
+  }
+
+  function updateSummary() {
+    const summary = document.getElementById('selection-summary');
+    const inquireBtn = document.getElementById('inquire-btn');
+    const roomLabel = roomNames[state.room];
+    if (state.selectedDate) {
+      const [y, m, d] = state.selectedDate.split('-').map(Number);
+      summary.innerHTML = `<b>${roomLabel}</b> · ${y}년 ${m + 1}월 ${d}일 체크인으로 문의를 남겨보세요.`;
+      inquireBtn.href = `guide.html?room=${state.room}#contact`;
+    } else {
+      summary.textContent = `${roomLabel} — 캘린더에서 날짜를 선택해 주세요.`;
+      inquireBtn.href = `guide.html?room=${state.room}#contact`;
+    }
+  }
+
+  initChipGroup('#room-tabs', () => {
+    state.room = document.querySelector('#room-tabs .chip.on').dataset.room;
+    state.selectedDate = null;
+    renderCalendar();
+    updateSummary();
+  });
+
+  document.getElementById('prev-month').addEventListener('click', () => {
+    state.month--;
+    if (state.month < 0) { state.month = 11; state.year--; }
+    renderCalendar();
+  });
+  document.getElementById('next-month').addEventListener('click', () => {
+    state.month++;
+    if (state.month > 11) { state.month = 0; state.year++; }
+    renderCalendar();
+  });
+
+  renderDow();
+  renderCalendar();
+  updateSummary();
+</script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>이용후기 — 우리채</title>
+<meta name="description" content="우리채에 다녀가신 분들의 실제 후기와 별점, 사진을 확인해 보세요.">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .rating-hero{ display:grid; grid-template-columns:220px 1fr; gap:40px; align-items:center; margin-top:8px; }
+  @media (max-width:720px){ .rating-hero{ grid-template-columns:1fr; gap:24px; } }
+  .rating-big{ text-align:center; }
+  .rating-big .num{ font-size:56px; font-weight:700; letter-spacing:-.02em; }
+  .rating-big .stars{ color:var(--wood); font-size:20px; letter-spacing:3px; margin-top:6px; }
+  .rating-big .count{ font-size:13.5px; color:var(--ink-soft); margin-top:8px; }
+  .room-ratings{ display:flex; flex-direction:column; gap:12px; }
+  .room-ratings .row{ display:grid; grid-template-columns:80px 1fr 40px; gap:14px; align-items:center; font-size:14px; }
+  .bar-track{ height:8px; background:var(--line); border-radius:99px; overflow:hidden; }
+  .bar-fill{ height:100%; background:var(--accent); border-radius:99px; }
+
+  .review-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:22px; margin-top:44px; }
+  @media (max-width:820px){ .review-grid{ grid-template-columns:1fr; } }
+  .rv-card{ background:var(--bg-card); border:1px solid var(--line); border-radius:18px; overflow:hidden; }
+  .rv-card .art{ aspect-ratio:16/9; }
+  .rv-card .body{ padding:20px 22px 24px; }
+  .rv-card .stars{ color:var(--wood); font-size:14px; letter-spacing:2px; }
+  .rv-card .who{ font-size:13px; color:var(--ink-soft); margin-top:4px; }
+  .rv-card blockquote{ margin:12px 0 0; font-size:15.5px; line-height:1.6; }
+  .p1 .art{ background:linear-gradient(155deg,#bcdbd6,#4f7c78 60%,#294e4a); }
+  .p2 .art{ background:linear-gradient(155deg,#f0c9a8,#d98f5a 60%,#7a4423); }
+  .p3 .art{ background:linear-gradient(155deg,#cfe3c9,#7fa26f 60%,#3f5533); }
+  .p4 .art{ background:linear-gradient(155deg,#e7d6b8,#b98d5e 60%,#6e4c2c); }
+
+  .insta-banner{
+    margin-top:56px; background:var(--bg-card); border:1px solid var(--line); border-radius:20px;
+    padding:36px 30px; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
+  }
+  .insta-banner .tag{ font-weight:700; font-size:18px; }
+  .insta-banner .desc{ color:var(--ink-soft); font-size:14.5px; margin-top:6px; }
+</style>
+</head>
+<body>
+
+<header id="site-header">
+  <div class="wrap nav">
+    <a class="logo" href="index.html">우리채<small>Pool Villa</small></a>
+    <nav class="navlinks">
+      <a href="space.html">공간</a>
+      <a href="about.html">우리채 이야기</a>
+      <a href="review.html" class="active">이용후기</a>
+      <a href="guide.html">이용안내</a>
+    </nav>
+    <a class="btn small" href="booking.html">날짜 볼까요?</a>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Review</span>
+      <h2>다녀가신 분들 이야기</h2>
+      <p>실제 투숙객들이 남겨주신 후기와 별점이에요.</p>
+    </div>
+
+    <div class="rating-hero">
+      <div class="rating-big">
+        <div class="num">4.9</div>
+        <div class="stars">★★★★★</div>
+        <div class="count">후기 128건</div>
+      </div>
+      <div class="room-ratings">
+        <div class="row"><span>소나무동</span><div class="bar-track"><div class="bar-fill" style="width:98%"></div></div><span>4.9</span></div>
+        <div class="row"><span>별채동</span><div class="bar-track"><div class="bar-fill" style="width:94%"></div></div><span>4.7</span></div>
+        <div class="row"><span>마당동</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span>5.0</span></div>
+        <div class="row"><span>노을동</span><div class="bar-track"><div class="bar-fill" style="width:96%"></div></div><span>4.8</span></div>
+      </div>
+    </div>
+
+    <div class="review-grid">
+      <div class="rv-card p1">
+        <div class="art"></div>
+        <div class="body">
+          <div class="stars">★★★★★</div>
+          <div class="who">소나무동 · 가족 4인</div>
+          <blockquote>"아이들이 수영장에서 안 나오려고 해요. 독채라 마음 편히 뛰어놀게 했어요. 그릴도 다 세팅돼 있어서 저희는 굽기만 했어요."</blockquote>
+        </div>
+      </div>
+      <div class="rv-card p2">
+        <div class="art"></div>
+        <div class="body">
+          <div class="stars">★★★★★</div>
+          <div class="who">노을동 · 2인</div>
+          <blockquote>"노을동 테라스에서 본 노을이 진짜였어요. 둘이 조용히 쉬기 딱이었어요. 밤에 스트링라이트도 예뻤어요."</blockquote>
+        </div>
+      </div>
+      <div class="rv-card p3">
+        <div class="art"></div>
+        <div class="body">
+          <div class="stars">★★★★★</div>
+          <div class="who">마당동 · 가족 5인</div>
+          <blockquote>"마당이 넓어서 아이들이 공놀이까지 했어요. 다른 팀 눈치 안 보고 온전히 우리끼리 썼다는 게 제일 좋았어요."</blockquote>
+        </div>
+      </div>
+      <div class="rv-card p4">
+        <div class="art"></div>
+        <div class="body">
+          <div class="stars">★★★★☆</div>
+          <div class="who">별채동 · 2인</div>
+          <blockquote>"작지만 딱 필요한 만큼 아늑했어요. 공용 수영장도 사람이 적어서 여유롭게 썼어요."</blockquote>
+        </div>
+      </div>
+    </div>
+
+    <div class="insta-banner">
+      <div>
+        <div class="tag">📷 @woorichae</div>
+        <div class="desc">인스타그램에 우리채를 태그해주시면, 투숙객 사진으로 소개해드려요.</div>
+      </div>
+      <a class="btn ghost" href="https://instagram.com/woorichae" target="_blank" rel="noopener">인스타그램 보러가기</a>
+    </div>
+
+    <div class="closing">
+      <h2>우리 이야기도<br>남겨주세요.</h2>
+      <p>체크아웃 후 후기를 남겨주시면 다음 예약 10% 할인 쿠폰을 드려요.</p>
+      <a class="btn big" href="guide.html#contact">후기 남기러 가기</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap fgrid">
+    <div>
+      <strong>우리채</strong> — 오늘은, 우리끼리 씁니다.<br>
+      <span class="flinks" style="margin-top:10px;">
+        <a href="space.html">공간</a>
+        <a href="about.html">우리채 이야기</a>
+        <a href="review.html">이용후기</a>
+        <a href="guide.html">이용안내</a>
+        <a href="location.html">오시는길</a>
+      </span>
+    </div>
+    <div>ⓒ 2026 우리채. 기획 초안용 시안 페이지입니다.</div>
+  </div>
+</footer>
+
+<script src="js/common.js"></script>
+</body>
+</html>

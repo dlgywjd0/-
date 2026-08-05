@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>공간 소개 — 우리채</title>
+<meta name="description" content="소나무동·별채동·마당동·노을동, 우리채의 4개 동을 한눈에 비교해보세요.">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .page-hero{ height:min(38vh,300px); min-height:220px; }
+  .rooms{ display:grid; grid-template-columns:repeat(4,1fr); gap:22px; margin-top:8px; }
+  @media (max-width:980px){ .rooms{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .rooms{ grid-template-columns:1fr; } }
+  .rooms .art{ aspect-ratio:4/5; }
+  .r1 .art{ background:linear-gradient(155deg,#bcdbd6,#4f7c78 60%,#294e4a); }
+  .r2 .art{ background:linear-gradient(155deg,#e7d6b8,#b98d5e 60%,#6e4c2c); }
+  .r3 .art{ background:linear-gradient(155deg,#cfe3c9,#7fa26f 60%,#3f5533); }
+  .r4 .art{ background:linear-gradient(155deg,#f0c9a8,#d98f5a 60%,#7a4423); }
+  .price{ margin-top:10px; font-weight:600; font-size:16px; }
+  .price .from{ font-size:12.5px; color:var(--ink-soft); font-weight:500; margin-right:4px; }
+  .room-item{ transition:opacity .25s ease, transform .25s ease; }
+  .room-item.hide{ display:none; }
+  .empty-note{ text-align:center; color:var(--ink-soft); padding:40px 0; display:none; }
+  .empty-note.show{ display:block; }
+</style>
+</head>
+<body>
+
+<header id="site-header">
+  <div class="wrap nav">
+    <a class="logo" href="index.html">우리채<small>Pool Villa</small></a>
+    <nav class="navlinks">
+      <a href="space.html" class="active">공간</a>
+      <a href="about.html">우리채 이야기</a>
+      <a href="review.html">이용후기</a>
+      <a href="guide.html">이용안내</a>
+    </nav>
+    <a class="btn small" href="booking.html">날짜 볼까요?</a>
+  </div>
+</header>
+
+<section class="page-hero">
+  <canvas id="spaceCanvas"></canvas>
+  <div class="page-hero-copy">
+    <div class="wrap" style="padding-top:80px;">
+      <span class="eyebrow">Space</span>
+      <h1>넷이 와도, 둘이 와도<br>맞는 동이 있어요.</h1>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:64px;">
+  <div class="wrap">
+    <div class="tag-strip">🏡 가족 넷이 함께 오기 좋은 동 — 소나무동 · 마당동을 추천해요.</div>
+
+    <div class="filterbar">
+      <div>
+        <div style="font-size:13.5px; font-weight:600; margin-bottom:10px; color:var(--ink-soft);">인원수</div>
+        <div class="chiprow" id="filter-guests" data-multi="false">
+          <button class="chip on" data-guests="all">전체</button>
+          <button class="chip" data-guests="2">2인</button>
+          <button class="chip" data-guests="4">4인 이상</button>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13.5px; font-weight:600; margin-bottom:10px; color:var(--ink-soft);">개인수영장</div>
+        <div class="chiprow" id="filter-pool" data-multi="false">
+          <button class="chip on" data-pool="all">전체</button>
+          <button class="chip" data-pool="o">있음</button>
+          <button class="chip" data-pool="x">없음</button>
+        </div>
+      </div>
+      <div>
+        <label for="sort" style="margin-bottom:10px;">정렬</label>
+        <select id="sort" class="sortsel">
+          <option value="default">기본순</option>
+          <option value="guests">인원순</option>
+          <option value="price">요금순</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="rooms" id="room-grid" style="margin-top:36px;">
+      <a class="card room-item r1" href="space/pine.html" data-guests="4" data-pool="o" data-price="180000">
+        <div class="art"></div>
+        <div class="card-body">
+          <div class="name">소나무동</div>
+          <div class="spec"><span>기준 4인</span><span>·</span><span>최대 6인</span><span>·</span><span>개인수영장 O</span><span>·</span><span>25평</span></div>
+          <div class="price"><span class="from">1박</span>180,000원~</div>
+          <div class="line">가족 넷이 딱 맞아요.</div>
+          <div class="more"><span class="btn ghost small">자세히 보기</span></div>
+        </div>
+      </a>
+      <a class="card room-item r2" href="space/annex.html" data-guests="2" data-pool="x" data-price="120000">
+        <div class="art"></div>
+        <div class="card-body">
+          <div class="name">별채동</div>
+          <div class="spec"><span>기준 2인</span><span>·</span><span>최대 2인</span><span>·</span><span>개인수영장 X</span><span>·</span><span>15평</span></div>
+          <div class="price"><span class="from">1박</span>120,000원~</div>
+          <div class="line">둘이 오붓하게 지내기 좋아요.</div>
+          <div class="more"><span class="btn ghost small">자세히 보기</span></div>
+        </div>
+      </a>
+      <a class="card room-item r3" href="space/yard.html" data-guests="4" data-pool="o" data-price="170000">
+        <div class="art"></div>
+        <div class="card-body">
+          <div class="name">마당동</div>
+          <div class="spec"><span>기준 4인</span><span>·</span><span>최대 5인</span><span>·</span><span>개인수영장 O</span><span>·</span><span>22평</span></div>
+          <div class="price"><span class="from">1박</span>170,000원~</div>
+          <div class="line">마당이 넓어서 아이들이 뛰어놀기 좋아요.</div>
+          <div class="more"><span class="btn ghost small">자세히 보기</span></div>
+        </div>
+      </a>
+      <a class="card room-item r4" href="space/sunset.html" data-guests="2" data-pool="o" data-price="150000">
+        <div class="art"></div>
+        <div class="card-body">
+          <div class="name">노을동</div>
+          <div class="spec"><span>기준 2인</span><span>·</span><span>최대 3인</span><span>·</span><span>개인수영장 O</span><span>·</span><span>18평</span></div>
+          <div class="price"><span class="from">1박</span>150,000원~</div>
+          <div class="line">테라스에서 노을 보기 좋아요.</div>
+          <div class="more"><span class="btn ghost small">자세히 보기</span></div>
+        </div>
+      </a>
+    </div>
+    <p class="empty-note" id="empty-note">조건에 맞는 동이 없어요. 필터를 조금 넓혀 보세요.</p>
+    <p class="skeleton-note">요금은 성수기/비수기에 따라 달라질 수 있어요. 정확한 금액은 예약 페이지에서 확인해 주세요.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="closing">
+      <h2>우리끼리 쓸 날짜,<br>잡아볼까요?</h2>
+      <p>마음에 드는 동을 정하셨다면, 바로 날짜를 확인해 보세요.</p>
+      <a class="btn big" href="booking.html">날짜 볼까요?</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap fgrid">
+    <div>
+      <strong>우리채</strong> — 오늘은, 우리끼리 씁니다.<br>
+      <span class="flinks" style="margin-top:10px;">
+        <a href="space.html">공간</a>
+        <a href="about.html">우리채 이야기</a>
+        <a href="review.html">이용후기</a>
+        <a href="guide.html">이용안내</a>
+        <a href="location.html">오시는길</a>
+      </span>
+    </div>
+    <div>ⓒ 2026 우리채. 기획 초안용 시안 페이지입니다.</div>
+  </div>
+</footer>
+
+<script src="js/common.js"></script>
+<script>
+  // ---- page hero: 숲 속 4개 동이 흩어져 있는 낮의 원경 ----
+  (function () {
+    const canvas = document.getElementById('spaceCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w, h;
+    function resize() { ({ w, h } = fitCanvas(canvas)); }
+    resize();
+    addEventListener('resize', resize);
+
+    const bokeh = [
+      { x: .1, y: .2, r: .2, c: '#4c6b3f' }, { x: .35, y: .12, r: .18, c: '#5c7d46', a: .7 },
+      { x: .62, y: .18, r: .22, c: '#3f5c36' }, { x: .88, y: .22, r: .2, c: '#587a44', a: .7 }
+    ].map((s, i) => ({ ...s, seed: i * 5.1 }));
+
+    function frame(t) {
+      const time = t * 0.0002;
+      const sky = ctx.createLinearGradient(0, 0, 0, h);
+      sky.addColorStop(0, '#e7edd6');
+      sky.addColorStop(1, '#4b6a3f');
+      ctx.fillStyle = sky; ctx.fillRect(0, 0, w, h);
+      drawBokeh(ctx, w, h, bokeh, time);
+      ctx.fillStyle = 'rgba(30,40,24,.25)';
+      ctx.fillRect(0, h * 0.82, w, h * 0.18);
+      if (!reduceMotion) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+
+  // ---- filter + sort ----
+  const state = { guests: 'all', pool: 'all', sort: 'default' };
+  const grid = document.getElementById('room-grid');
+  const emptyNote = document.getElementById('empty-note');
+
+  function apply() {
+    const items = Array.from(grid.querySelectorAll('.room-item'));
+    let visibleCount = 0;
+    items.forEach((el) => {
+      const g = Number(el.dataset.guests);
+      const p = el.dataset.pool;
+      const guestOk = state.guests === 'all' || (state.guests === '2' ? g <= 2 : g >= 4);
+      const poolOk = state.pool === 'all' || p === state.pool;
+      const ok = guestOk && poolOk;
+      el.classList.toggle('hide', !ok);
+      if (ok) visibleCount++;
+    });
+    emptyNote.classList.toggle('show', visibleCount === 0);
+
+    const sorted = items.slice().sort((a, b) => {
+      if (state.sort === 'guests') return Number(b.dataset.guests) - Number(a.dataset.guests);
+      if (state.sort === 'price') return Number(a.dataset.price) - Number(b.dataset.price);
+      return 0;
+    });
+    if (state.sort !== 'default') sorted.forEach((el) => grid.appendChild(el));
+  }
+
+  initChipGroup('#filter-guests', () => {
+    state.guests = document.querySelector('#filter-guests .chip.on').dataset.guests;
+    apply();
+  });
+  initChipGroup('#filter-pool', () => {
+    state.pool = document.querySelector('#filter-pool .chip.on').dataset.pool;
+    apply();
+  });
+  document.getElementById('sort').addEventListener('change', (e) => {
+    state.sort = e.target.value;
+    apply();
+  });
+</script>
+</body>
+</html>
