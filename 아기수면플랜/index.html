@@ -1,0 +1,881 @@
+<title>106일 수면 플랜</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
+
+<style>
+  :root {
+    --paper:   #F2F4F9;
+    --card:    #FFFFFF;
+    --ink:     #191E2E;
+    --ink-2:   #3C4459;
+    --muted:   #656E88;
+    --line:    #DFE3EE;
+    --line-2:  #ECEEF5;
+    --sleep:   #4A5BA8;
+    --sleep-w: #E4E7F5;
+    --feed:    #A96A1E;
+    --feed-w:  #F5EADA;
+    --wake:    #377766;
+    --wake-w:  #E0EDE9;
+    --alert:   #A33F46;
+    --alert-w: #F7E7E8;
+
+    --f-display: "Hahmlet", "Nanum Myeongjo", serif;
+    --f-body: "IBM Plex Sans KR", system-ui, -apple-system, "Malgun Gothic", sans-serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+
+    --spine: 44rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:   #0F121B;
+      --card:    #171C29;
+      --ink:     #E7EAF3;
+      --ink-2:   #C2C8D8;
+      --muted:   #8E97AF;
+      --line:    #262D3E;
+      --line-2:  #1F2533;
+      --sleep:   #8E9CE4;
+      --sleep-w: #232A45;
+      --feed:    #D7A257;
+      --feed-w:  #2E2617;
+      --wake:    #6FB49D;
+      --wake-w:  #172B27;
+      --alert:   #E08B90;
+      --alert-w: #2E1B1D;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:   #0F121B;
+    --card:    #171C29;
+    --ink:     #E7EAF3;
+    --ink-2:   #C2C8D8;
+    --muted:   #8E97AF;
+    --line:    #262D3E;
+    --line-2:  #1F2533;
+    --sleep:   #8E9CE4;
+    --sleep-w: #232A45;
+    --feed:    #D7A257;
+    --feed-w:  #2E2617;
+    --wake:    #6FB49D;
+    --wake-w:  #172B27;
+    --alert:   #E08B90;
+    --alert-w: #2E1B1D;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 16px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    word-break: keep-all;
+  }
+
+  .wrap {
+    max-width: var(--spine);
+    margin: 0 auto;
+    padding: 0 1.35rem 6rem;
+  }
+
+  /* ---------- masthead ---------- */
+  .masthead {
+    padding: 4.5rem 0 2.5rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--sleep);
+    margin: 0 0 1.1rem;
+  }
+  h1 {
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: clamp(2.1rem, 6.5vw, 3rem);
+    line-height: 1.22;
+    letter-spacing: -.02em;
+    text-wrap: balance;
+    margin: 0 0 1rem;
+  }
+  .lede {
+    font-size: 1.02rem;
+    color: var(--ink-2);
+    margin: 0;
+    max-width: 34rem;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+    gap: 1px;
+    margin-top: 2.5rem;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .stat { background: var(--card); padding: 1rem 1.1rem; }
+  .stat dt {
+    font-size: .74rem;
+    letter-spacing: .06em;
+    color: var(--muted);
+    margin: 0 0 .35rem;
+  }
+  .stat dd {
+    margin: 0;
+    font-family: var(--f-mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 1.18rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .stat dd .u { font-size: .8rem; font-weight: 400; color: var(--muted); }
+
+  /* ---------- sections ---------- */
+  section { padding-top: 3.75rem; }
+  .sec-head { margin-bottom: 1.5rem; }
+  .sec-num {
+    font-family: var(--f-mono);
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .14em;
+    color: var(--muted);
+    display: block;
+    margin-bottom: .4rem;
+  }
+  h2 {
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: 1.55rem;
+    letter-spacing: -.01em;
+    line-height: 1.35;
+    margin: 0 0 .5rem;
+    text-wrap: balance;
+  }
+  h3 {
+    font-family: var(--f-body);
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 2rem 0 .7rem;
+    color: var(--ink);
+  }
+  .sec-head p { margin: 0; color: var(--muted); font-size: .93rem; }
+  p { margin: 0 0 1rem; }
+
+  /* ---------- 24h band ---------- */
+  .band-frame {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    padding: 1.35rem 1.35rem 1.1rem;
+  }
+  .band {
+    display: flex;
+    height: 30px;
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--line-2);
+  }
+  .band span { display: block; height: 100%; }
+  .band .s-sleep { background: var(--sleep); }
+  .band .s-wake  { background: var(--wake-w); border-top: 1px solid var(--wake); border-bottom: 1px solid var(--wake); }
+  .feedline {
+    position: relative;
+    height: 22px;
+    margin-top: 4px;
+  }
+  .feedline i {
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 8px;
+    background: var(--feed);
+    transform: translateX(-1px);
+  }
+  .feedline i::after {
+    content: attr(data-n);
+    position: absolute;
+    top: 9px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--f-mono);
+    font-size: .64rem;
+    color: var(--feed);
+  }
+  .band-axis {
+    display: flex;
+    justify-content: space-between;
+    margin-top: .55rem;
+    font-family: var(--f-mono);
+    font-size: .68rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .45rem 1.25rem;
+    margin-top: 1rem;
+    padding-top: .9rem;
+    border-top: 1px solid var(--line-2);
+    font-size: .8rem;
+    color: var(--muted);
+  }
+  .legend b { font-weight: 500; color: var(--ink-2); }
+  .key {
+    display: inline-block;
+    width: 11px; height: 11px;
+    border-radius: 2px;
+    margin-right: .45rem;
+    vertical-align: -1px;
+  }
+  .key.sleep { background: var(--sleep); }
+  .key.wake  { background: var(--wake-w); border: 1px solid var(--wake); }
+  .key.feed  { background: var(--feed); }
+
+  /* ---------- timeline rail ---------- */
+  .rail { margin-top: 1.75rem; }
+  .row {
+    display: grid;
+    grid-template-columns: 3.9rem 16px 1fr;
+    gap: 0 .9rem;
+    align-items: start;
+  }
+  .row .t {
+    font-family: var(--f-mono);
+    font-variant-numeric: tabular-nums;
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--muted);
+    padding-top: .62rem;
+    text-align: right;
+  }
+  .row .mark {
+    position: relative;
+    justify-self: center;
+    width: 16px;
+    align-self: stretch;
+  }
+  .row .mark::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0; bottom: 0;
+    width: 1px;
+    margin-left: -.5px;
+    background: var(--line);
+  }
+  .row:first-child .mark::before { top: .95rem; }
+  .row:last-child .mark::before { bottom: calc(100% - .95rem); }
+  .row .mark::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: .78rem;
+    width: 9px; height: 9px;
+    margin-left: -4.5px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--muted);
+  }
+  .row.sleep .mark::after { background: var(--sleep); border-color: var(--sleep); }
+  .row.feed  .mark::after { background: var(--feed);  border-color: var(--feed); }
+  .row.wake  .mark::after { background: var(--paper); border-color: var(--wake); }
+  .row.pivot .mark::after {
+    width: 13px; height: 13px;
+    margin-left: -6.5px;
+    top: .68rem;
+    background: var(--sleep);
+    border-color: var(--sleep);
+    box-shadow: 0 0 0 4px var(--sleep-w);
+  }
+
+  .row .body { padding: .45rem 0 .85rem; min-width: 0; }
+  .row .label {
+    font-weight: 600;
+    font-size: .95rem;
+    line-height: 1.5;
+  }
+  .row.sleep .label { color: var(--sleep); }
+  .row.feed  .label { color: var(--feed); }
+  .row .note {
+    font-size: .855rem;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-top: .1rem;
+  }
+  .row .dur {
+    font-family: var(--f-mono);
+    font-size: .72rem;
+    color: var(--muted);
+    margin-left: .5rem;
+    font-weight: 400;
+  }
+
+  /* ---------- tables ---------- */
+  .scroll { overflow-x: auto; margin: 0 0 1rem; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .875rem;
+    min-width: 24rem;
+    background: var(--card);
+  }
+  caption {
+    caption-side: top;
+    text-align: left;
+    font-size: .8rem;
+    color: var(--muted);
+    padding-bottom: .5rem;
+  }
+  th, td {
+    padding: .62rem .8rem;
+    border-bottom: 1px solid var(--line-2);
+    text-align: left;
+    vertical-align: top;
+  }
+  thead th {
+    font-size: .72rem;
+    letter-spacing: .07em;
+    font-weight: 600;
+    color: var(--muted);
+    background: var(--line-2);
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.num, th.num {
+    font-family: var(--f-mono);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  table { border: 1px solid var(--line); border-radius: 4px; }
+
+  /* ---------- steps ---------- */
+  .steps { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 5px; overflow: hidden; }
+  .step { background: var(--card); padding: 1.25rem 1.35rem; }
+  .step .wk {
+    font-family: var(--f-mono);
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    color: var(--sleep);
+    display: block;
+    margin-bottom: .3rem;
+  }
+  .step h4 {
+    font-family: var(--f-body);
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 .55rem;
+  }
+  .step p { margin: 0 0 .7rem; font-size: .89rem; color: var(--ink-2); }
+  .step p:last-child { margin-bottom: 0; }
+  .goal {
+    font-size: .8rem;
+    color: var(--muted);
+    border-left: 2px solid var(--line);
+    padding-left: .7rem;
+  }
+
+  /* ---------- checklist / lists ---------- */
+  ul.plain { list-style: none; padding: 0; margin: 0 0 1rem; }
+  ul.plain li {
+    position: relative;
+    padding-left: 1.3rem;
+    margin-bottom: .5rem;
+    font-size: .9rem;
+    color: var(--ink-2);
+  }
+  ul.plain li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: .62rem;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--muted);
+  }
+  ul.check { list-style: none; padding: 0; margin: 0; display: grid; gap: .55rem; }
+  ul.check li {
+    position: relative;
+    padding-left: 1.7rem;
+    font-size: .9rem;
+    color: var(--ink-2);
+  }
+  ul.check li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: .38rem;
+    width: 15px; height: 15px;
+    border: 1.5px solid var(--wake);
+    border-radius: 3px;
+  }
+  ul.check.no li::before {
+    border-color: var(--alert);
+    background: var(--alert-w);
+  }
+
+  /* ---------- callouts ---------- */
+  .note-box {
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--sleep);
+    background: var(--card);
+    border-radius: 0 4px 4px 0;
+    padding: 1rem 1.15rem;
+    margin: 1.25rem 0;
+    font-size: .89rem;
+    color: var(--ink-2);
+  }
+  .note-box.warn { border-left-color: var(--alert); }
+  .note-box strong { color: var(--ink); font-weight: 600; }
+  .note-box p:last-child { margin-bottom: 0; }
+
+  /* ---------- Q&A ---------- */
+  .qa { border-top: 1px solid var(--line); }
+  .qa details {
+    border-bottom: 1px solid var(--line);
+    background: var(--card);
+  }
+  .qa summary {
+    cursor: pointer;
+    padding: .95rem 1.1rem;
+    font-weight: 500;
+    font-size: .94rem;
+    list-style: none;
+    display: flex;
+    gap: .7rem;
+    align-items: baseline;
+  }
+  .qa summary::-webkit-details-marker { display: none; }
+  .qa summary::before {
+    content: "+";
+    font-family: var(--f-mono);
+    color: var(--sleep);
+    font-weight: 600;
+    flex: none;
+  }
+  .qa details[open] summary::before { content: "\2212"; }
+  .qa summary:focus-visible { outline: 2px solid var(--sleep); outline-offset: -2px; }
+  .qa .ans {
+    padding: 0 1.1rem 1.1rem 2.5rem;
+    font-size: .88rem;
+    color: var(--ink-2);
+  }
+  .qa .ans p:last-child, .qa .ans ul:last-child { margin-bottom: 0; }
+
+  footer {
+    margin-top: 4.5rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--line);
+    font-size: .8rem;
+    color: var(--muted);
+  }
+  footer p { margin: 0 0 .5rem; }
+
+  @media (max-width: 480px) {
+    .row { grid-template-columns: 3.3rem 14px 1fr; gap: 0 .6rem; }
+    .row .t { font-size: .76rem; }
+    .band-frame { padding: 1rem .9rem .8rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">생후 106일 · 만 15주</p>
+    <h1>106일 아가의 하루<br>수면·수유 플랜</h1>
+    <p class="lede">아침 7시 기상을 기준으로 짠 하루 설계입니다. 시각표는 지도이고, 실제 나침반은 <strong>깨어 있는 시간</strong>입니다.</p>
+
+    <dl class="stats">
+      <div class="stat"><dt>하루 총 수면</dt><dd>14~16<span class="u">시간</span></dd></div>
+      <div class="stat"><dt>낮잠</dt><dd>4<span class="u">회 · 약 4시간</span></dd></div>
+      <div class="stat"><dt>활동시간</dt><dd>1:15~1:45</dd></div>
+      <div class="stat"><dt>수유</dt><dd>6~7<span class="u">회</span></dd></div>
+    </dl>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">한눈에</span>
+      <h2>24시간이 이렇게 나뉩니다</h2>
+      <p>아침 7시부터 다음 날 아침 7시까지. 길이가 실제 시간에 비례합니다.</p>
+    </div>
+
+    <div class="band-frame">
+      <div class="band" role="img" aria-label="24시간 중 잠과 깨어 있는 시간의 비율: 낮잠 4회 약 4시간, 밤잠 12시간">
+        <span class="s-wake"  style="flex: 80"></span>
+        <span class="s-sleep" style="flex: 80"></span>
+        <span class="s-wake"  style="flex: 90"></span>
+        <span class="s-sleep" style="flex: 80"></span>
+        <span class="s-wake"  style="flex: 90"></span>
+        <span class="s-sleep" style="flex: 75"></span>
+        <span class="s-wake"  style="flex: 105"></span>
+        <span class="s-sleep" style="flex: 30"></span>
+        <span class="s-wake"  style="flex: 90"></span>
+        <span class="s-sleep" style="flex: 720"></span>
+      </div>
+      <div class="feedline" aria-hidden="true">
+        <i style="left: 0.7%"  data-n="①"></i>
+        <i style="left: 12.5%" data-n="②"></i>
+        <i style="left: 25%"   data-n="③"></i>
+        <i style="left: 35.4%" data-n="④"></i>
+        <i style="left: 49%"   data-n="⑤"></i>
+        <i style="left: 63.5%" data-n="⑥"></i>
+        <i style="left: 83.3%" data-n="⑦"></i>
+      </div>
+      <div class="band-axis">
+        <span>07시</span><span>12시</span><span>17시</span><span>22시</span><span>03시</span><span>07시</span>
+      </div>
+      <div class="legend">
+        <span><i class="key sleep"></i><b>잠</b> 낮잠 4시간 + 밤잠 12시간</span>
+        <span><i class="key wake"></i><b>깨어 있는 시간</b> 8시간</span>
+        <span><i class="key feed"></i><b>수유</b> 7회</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">01 — 하루 타임라인</span>
+      <h2>몇 시에 자고, 먹고, 일어나나</h2>
+      <p>기상이 6시나 8시라면 아래 모든 시각을 그대로 밀거나 당기면 됩니다.</p>
+    </div>
+
+    <div class="rail">
+      <div class="row pivot">
+        <div class="t">07:00</div><div class="mark"></div>
+        <div class="body"><div class="label">기상</div>
+        <div class="note">커튼을 열고 밝은 빛을 보여줍니다. 7:30이 넘었으면 자고 있어도 깨웁니다. <strong>하루에서 유일하게 고정할 시각입니다.</strong></div></div>
+      </div>
+      <div class="row feed">
+        <div class="t">07:10</div><div class="mark"></div>
+        <div class="body"><div class="label">수유 ①<span class="dur">160~180ml</span></div>
+        <div class="note">하루 중 가장 든든하게 먹이는 수유.</div></div>
+      </div>
+      <div class="row wake">
+        <div class="t">~08:20</div><div class="mark"></div>
+        <div class="body"><div class="label">활동<span class="dur">1시간 20분</span></div>
+        <div class="note">배밀이 연습 5~10분, 기저귀, 눈 맞추고 이야기하기.</div></div>
+      </div>
+      <div class="row sleep">
+        <div class="t">08:20</div><div class="mark"></div>
+        <div class="body"><div class="label">낮잠 ① 아침잠<span class="dur">~09:40 · 80분</span></div>
+        <div class="note">하루 중 가장 쉽게 잠드는 잠. 10시까지는 깨웁니다.</div></div>
+      </div>
+      <div class="row feed">
+        <div class="t">10:00</div><div class="mark"></div>
+        <div class="body"><div class="label">수유 ②<span class="dur">150~170ml</span></div></div>
+      </div>
+      <div class="row wake">
+        <div class="t">~11:10</div><div class="mark"></div>
+        <div class="body"><div class="label">활동<span class="dur">1시간 30분</span></div>
+        <div class="note">산책과 외출을 넣기 가장 좋은 시간대.</div></div>
+      </div>
+      <div class="row sleep">
+        <div class="t">11:10</div><div class="mark"></div>
+        <div class="body"><div class="label">낮잠 ② 오전잠<span class="dur">~12:30 · 80분</span></div>
+        <div class="note"><strong>하루 중 가장 깊고 긴 잠.</strong> 여기에는 외출 일정을 겹치지 마세요.</div></div>
+      </div>
+      <div class="row feed">
+        <div class="t">13:00</div><div class="mark"></div>
+        <div class="body"><div class="label">수유 ③<span class="dur">150~170ml</span></div></div>
+      </div>
+      <div class="row sleep">
+        <div class="t">14:00</div><div class="mark"></div>
+        <div class="body"><div class="label">낮잠 ③ 오후잠<span class="dur">~15:15 · 75분</span></div>
+        <div class="note">유모차·아기띠 이동 잠으로 대체해도 괜찮은 유일한 낮잠.</div></div>
+      </div>
+      <div class="row feed">
+        <div class="t">15:30</div><div class="mark"></div>
+        <div class="body"><div class="label">수유 ④<span class="dur">150~170ml</span></div></div>
+      </div>
+      <div class="row sleep">
+        <div class="t">17:00</div><div class="mark"></div>
+        <div class="body"><div class="label">낮잠 ④ 저녁 쪽잠<span class="dur">~17:30 · 30분</span></div>
+        <div class="note">취침까지 버티게 해주는 짧은 잠. <strong>17:30에는 반드시 깨웁니다.</strong></div></div>
+      </div>
+      <div class="row wake">
+        <div class="t">18:15</div><div class="mark"></div>
+        <div class="body"><div class="label">목욕 · 수면 의식<span class="dur">30~40분</span></div>
+        <div class="note">목욕 → 로션 마사지 → 잠옷·슬립색 → 어두운 방에서 자장가. 매일 같은 순서, 같은 시간.</div></div>
+      </div>
+      <div class="row feed">
+        <div class="t">18:45</div><div class="mark"></div>
+        <div class="body"><div class="label">수유 ⑤ 마지막 수유<span class="dur">160~180ml</span></div>
+        <div class="note">조명은 최소로, 말을 걸지 않습니다. 먹다 잠들면 살짝 깨워 눕힙니다.</div></div>
+      </div>
+      <div class="row pivot">
+        <div class="t">19:00</div><div class="mark"></div>
+        <div class="body"><div class="label">취침</div>
+        <div class="note">졸리지만 <strong>깨어 있는 상태</strong>로 등을 대고 눕힙니다. 이 월령에 19시는 이른 게 아니라 적정입니다.</div></div>
+      </div>
+      <div class="row feed">
+        <div class="t">22:15</div><div class="mark"></div>
+        <div class="body"><div class="label">수유 ⑥ 꿈수유<span class="dur">선택 · 120~150ml</span></div>
+        <div class="note">불을 켜지 않고 살짝 깨워 먹인 뒤 바로 눕힙니다. 2주 해보고 새벽 각성이 줄지 않으면 뺍니다.</div></div>
+      </div>
+      <div class="row feed">
+        <div class="t">02~04시</div><div class="mark"></div>
+        <div class="body"><div class="label">수유 ⑦ 밤중 수유<span class="dur">120~150ml</span></div>
+        <div class="note">이 시기에 1회는 정상입니다. 말·불·놀이 없이 10~15분 안에 마칩니다.</div></div>
+      </div>
+      <div class="row pivot">
+        <div class="t">07:00</div><div class="mark"></div>
+        <div class="body"><div class="label">다시 기상</div>
+        <div class="note">밤에 잘 못 잤어도 기상은 30분 이상 밀지 않습니다. 오늘의 기상 시각이 오늘 밤 잠을 결정합니다.</div></div>
+      </div>
+    </div>
+
+    <h3>기상 시간이 다르다면</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>구분</th><th class="num">6시 기상</th><th class="num">7시 기상 (기본)</th><th class="num">8시 기상</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>기상 · 수유 ①</td><td class="num">06:00</td><td class="num">07:00</td><td class="num">08:00</td></tr>
+          <tr><td>낮잠 ①</td><td class="num">07:20~08:30</td><td class="num">08:20~09:40</td><td class="num">09:20~10:30</td></tr>
+          <tr><td>낮잠 ②</td><td class="num">10:00~11:30</td><td class="num">11:10~12:30</td><td class="num">12:00~13:30</td></tr>
+          <tr><td>낮잠 ③</td><td class="num">13:00~14:15</td><td class="num">14:00~15:15</td><td class="num">15:00~16:15</td></tr>
+          <tr><td>낮잠 ④</td><td class="num">16:00~16:40</td><td class="num">17:00~17:30</td><td class="num">17:50~18:20</td></tr>
+          <tr><td>마지막 수유</td><td class="num">17:45</td><td class="num">18:45</td><td class="num">19:20</td></tr>
+          <tr><td>취침</td><td class="num">18:00~18:30</td><td class="num">19:00</td><td class="num">19:40~20:00</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note-box">
+      <p><strong>시계보다 중요한 것 — 활동시간</strong></p>
+      <p>마지막으로 깬 시각부터 세어, 아침 첫 낮잠 전은 <strong>1시간 15~30분</strong>, 낮잠 사이는 <strong>1시간 30분</strong>, 마지막 낮잠에서 취침까지는 <strong>1시간 30~45분</strong>입니다.</p>
+      <p>하품·눈 비비기·시선이 멍해짐이 보이면 <strong>그때부터 5~10분 안에</strong> 눕히세요. 놓치면 과각성 상태가 되어 오히려 더 못 잡니다.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">02 — 수유</span>
+      <h2>얼마나 먹여야 하나</h2>
+      <p>회당 몇 ml인지보다 하루 총량이 맞는지가 훨씬 중요합니다.</p>
+    </div>
+
+    <div class="note-box">
+      <p><strong>하루 총량(ml) = 체중(kg) × 150</strong> — 단, 하루 1,000ml는 넘기지 않습니다.</p>
+      <p>체중을 모르면 15주 평균(남아 약 6.6kg / 여아 약 6.0kg)으로 시작해 조정하세요.</p>
+    </div>
+
+    <div class="scroll">
+      <table>
+        <caption>분유 기준 · 하루 총량과 회당 수유량</caption>
+        <thead>
+          <tr><th class="num">체중</th><th class="num">하루 총량</th><th class="num">6회로 나누면</th><th class="num">7회로 나누면</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="num">5.5kg</td><td class="num">825ml</td><td class="num">회당 140ml</td><td class="num">회당 120ml</td></tr>
+          <tr><td class="num">6.0kg</td><td class="num">900ml</td><td class="num">회당 150ml</td><td class="num">회당 130ml</td></tr>
+          <tr><td class="num">6.5kg</td><td class="num">975ml</td><td class="num">회당 160ml</td><td class="num">회당 140ml</td></tr>
+          <tr><td class="num">7.0kg 이상</td><td class="num">1,000ml</td><td class="num">회당 170ml</td><td class="num">회당 145ml</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>모유 수유라면</h3>
+    <p>양을 재지 않습니다. 하루 <strong>6~8회</strong>, 한 번에 양쪽 15~20분씩. 대신 아래 지표로 확인합니다.</p>
+    <ul class="plain">
+      <li>소변 기저귀 하루 6회 이상, 묵직하게</li>
+      <li>체중 증가 주당 약 100~150g</li>
+      <li>수유 후 가슴이 부드러워지고 아기가 스스로 젖을 놓음</li>
+    </ul>
+
+    <h3>밤중 수유, 지금 끊어도 되나</h3>
+    <p><strong>아직 아닙니다.</strong> 15주에 밤 1회는 정상이며, 대부분 5~6개월·체중 7kg 전후에 자연히 사라집니다. 다만 배고픔과 습관은 구분하세요.</p>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>배고파서 깬 신호</th><th>습관적으로 깬 신호</th></tr></thead>
+        <tbody>
+          <tr><td>깨자마자 강하게 울고 손을 빤다</td><td>낑낑대다 스스로 다시 잠들기도 한다</td></tr>
+          <tr><td>120ml 이상을 꿀꺽꿀꺽 다 먹는다</td><td>30~50ml만 먹고 도로 잠든다</td></tr>
+          <tr><td>매일 비슷한 시각에 1회</td><td>밤새 2~4회, 시각도 제각각</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>습관 쪽에 가깝다면 순서를 지키세요. <strong>3~5분 지켜보기 → 배에 손 얹기 → 토닥이기 → 그래도 울면 수유.</strong> 수유를 마지막 카드로 남겨두는 것만으로 2~3주에 걸쳐 줄어듭니다.</p>
+
+    <div class="note-box">
+      <p>물, 주스, 이유식은 아직입니다. <strong>만 6개월 전후</strong>에 소아청소년과와 상의해 시작하세요.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">03 — 수면 교육</span>
+      <h2>4주 커리큘럼</h2>
+      <p>주차는 순서입니다. 앞 단계가 자리 잡기 전에 다음 주로 넘어가지 마세요.</p>
+    </div>
+
+    <div class="note-box warn">
+      <p><strong>지금은 울려 재우지 않습니다.</strong></p>
+      <p>퍼버법·소거법은 생후 4~6개월 이후에 권장됩니다. 106일에 할 일은 훈련이 아니라 <strong>잠들 수 있는 조건을 만드는 것</strong>입니다. 지금 토대를 만들어 두면 4~5개월에 훈련이 훨씬 수월하고, 상당수는 별도 훈련 없이 넘어갑니다.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <span class="wk">1주차 · DAY 1–7</span>
+        <h4>관찰과 환경 세팅</h4>
+        <p>아무것도 바꾸지 않습니다. 기상 시각 하나만 고정하고 3~4일 기록합니다. 잠든 시각, 깬 시각, 수유 시각과 양.</p>
+        <p>환경: 암막 커튼, 백색소음(50dB 전후, 밤새 켜둠), 실내 20~22℃·습도 40~60%, 침대 안은 완전히 비우기.</p>
+        <p class="goal">성공 기준 — 기상 시각이 7일 중 5일 이상 ±30분 안에 들어옴</p>
+      </div>
+      <div class="step">
+        <span class="wk">2주차 · DAY 8–14</span>
+        <h4>수면 의식 고정</h4>
+        <p>밤 의식을 매일 같은 순서, 같은 시간(총 30~40분)으로 반복합니다. 목욕 → 마사지 → 슬립색 → 자장가 → 마지막 수유 → 눕히기.</p>
+        <p>낮잠 의식은 이 의식의 <strong>5분짜리 축소판</strong>으로. 마지막 수유는 눕히기 직전이 아니라 의식 중간에 배치해, 먹다 잠드는 습관을 미리 막습니다.</p>
+        <p class="goal">성공 기준 — 같은 순서의 수면 의식 7일 연속</p>
+      </div>
+      <div class="step">
+        <span class="wk">3주차 · DAY 15–21</span>
+        <h4>졸리지만 깨어 있게 눕히기</h4>
+        <p>눕히는 시점을 며칠에 걸쳐 조금씩 앞당깁니다. ① 잠든 직후 → ② 눈이 반쯤 감긴 상태 → ③ 하품하고 조용해졌지만 눈은 뜬 상태. 각 단계 2~3일.</p>
+        <p>울면 바로 안지 말고 <strong>손 얹기 → 토닥이기 → 안아서 진정 → 다시 졸린 상태로 눕히기</strong>. 안은 채로 재우지 않는 것이 핵심입니다. 밤잠에만 먼저 적용하세요.</p>
+        <p class="goal">성공 기준 — 밤잠에서 주 2~3회, 침대에 눕은 채로 잠듦</p>
+      </div>
+      <div class="step">
+        <span class="wk">4주차 · DAY 22–28</span>
+        <h4>밤중 각성 다루기</h4>
+        <p>밤에 소리가 나면 <strong>3~5분 기다립니다.</strong> 낑낑대거나 뒤척이는 것은 수면 주기가 바뀌는 정상 과정이고, 그대로 다시 잠드는 경우가 많습니다. 자지러지게 우는 건 예외 — 바로 갑니다.</p>
+        <p>3주차의 방식을 낮잠 ①(아침잠)에도 적용합니다. 아침잠이 가장 성공하기 쉽습니다. 꿈수유를 계속할지도 이번 주에 결정합니다.</p>
+        <p class="goal">현실적인 기대치 — 밤잠 6~8시간 연속 + 밤중 수유 1회. 이 월령에서 아주 좋은 결과입니다</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">04 — 안전</span>
+      <h2>수면 교육보다 먼저입니다</h2>
+      <p>눕히기 전 매일 확인하세요.</p>
+    </div>
+
+    <ul class="check">
+      <li>등을 대고 눕혔다 — 낮잠 포함 모든 잠</li>
+      <li>매트리스가 딱딱하고 평평하며 프레임과 틈이 없다</li>
+      <li>침대 안에 아무것도 없다 — 베개·이불·인형·범퍼·수건·젖병 전부</li>
+      <li>이불 대신 슬립색을 입혔다</li>
+      <li>실내 20~22℃, 목덜미가 땀나지 않을 만큼만 입혔다</li>
+      <li>부모와 같은 방, 다른 침대에서 잔다</li>
+    </ul>
+
+    <h3>절대 하지 않기</h3>
+    <ul class="check no">
+      <li>소파·안락의자·부모 침대에서 아기와 함께 잠들기</li>
+      <li>카시트·바운서에 잠든 아기를 그대로 두기 — 잠들면 평평한 곳으로 옮기기</li>
+      <li>젖병을 물린 채 재우기</li>
+      <li>수면 포지셔너·쐐기 베개 사용</li>
+    </ul>
+
+    <div class="note-box warn">
+      <p><strong>106일은 속싸개를 졸업할 시점입니다.</strong></p>
+      <p>옆으로 돌아눕거나 뒤집으려는 조짐이 하나라도 보이면 그날로 중단하세요. 팔이 묶인 채 엎드리면 스스로 얼굴을 들 수 없습니다. 전환은 일주일 — 한쪽 팔 빼기 3일 → 양팔 빼기 3일 → 슬립색.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">05 — 문제 해결</span>
+      <h2>이럴 땐 이렇게</h2>
+    </div>
+
+    <div class="qa">
+      <details>
+        <summary>낮잠을 매번 30~40분만 자요</summary>
+        <div class="ans">
+          <p>정상입니다. 아기의 수면 주기가 약 40분이라 주기 사이에서 깹니다.</p>
+          <ul class="plain">
+            <li>평소 깨는 시각 5분 전에 방에 들어가, 뒤척이는 순간 배에 손을 얹고 토닥여 다음 주기로 넘겨주기 (2주 반복)</li>
+            <li>그래도 깼다면 다음 활동시간을 15~20분 줄여 다음 잠을 앞당기기</li>
+            <li>낮잠 총합이 3시간 30분을 넘으면 개별 길이는 신경 쓰지 않아도 됩니다</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>새벽 5시에 깨서 다시 안 자요</summary>
+        <div class="ans">
+          <p>흔한 원인 순서대로 확인하세요.</p>
+          <ul class="plain">
+            <li><strong>취침이 너무 늦음</strong> — 과각성이 조기 기상의 1순위 원인입니다. 취침을 30분 앞당겨 보세요</li>
+            <li><strong>빛</strong> — 여름엔 5시부터 밝습니다. 암막을 보강하세요</li>
+            <li><strong>마지막 낮잠이 늦거나 김</strong> — 17:30 이후까지 자면 밤잠 압력이 떨어집니다</li>
+            <li><strong>배고픔</strong> — 마지막 수유량을 20ml 늘려보세요</li>
+          </ul>
+          <p>6시 전에 깨면 하루를 시작하지 말고 어두운 채로 30분 재우기를 시도하고, 6시 이후면 그냥 시작하되 첫 낮잠을 앞당기세요.</p>
+        </div>
+      </details>
+      <details>
+        <summary>눕히면 바로 깨요 (등 센서)</summary>
+        <div class="ans">
+          <ul class="plain">
+            <li>눕히기 전 5~10분 더 안고, 팔다리가 축 늘어질 때까지 기다립니다</li>
+            <li><strong>엉덩이 → 등 → 머리</strong> 순으로, 머리를 마지막에 내려놓습니다</li>
+            <li>눕힌 뒤에도 손을 30초 더 가슴에 얹어 압박감을 유지합니다</li>
+            <li>침구가 차가우면 깹니다. 눕히기 전 손으로 자리를 데워두세요</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>잘 자던 아이가 갑자기 자주 깨요 — 4개월 수면 퇴행</summary>
+        <div class="ans">
+          <p>보통 생후 3.5~4.5개월에 옵니다. <strong>지금이 딱 그 시기입니다.</strong> 성인과 같은 수면 구조로 바뀌며 얕은 잠 단계가 생기는, 되돌아가지 않는 발달상의 변화입니다. 2~6주 지속됩니다.</p>
+          <ul class="plain">
+            <li>스케줄을 바꾸지 말고 그대로 유지합니다. 여기서 흔들리면 회복이 더 오래 걸립니다</li>
+            <li>낮잠이 무너진 날은 취침을 30~45분 앞당깁니다</li>
+            <li>이 시기에 속싸개는 반드시 졸업하고 슬립색으로 바꿉니다</li>
+            <li>도움을 잠시 늘려도 됩니다. 퇴행이 지나면 다시 줄이면 됩니다</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>낮잠이 엉망이었던 날은 어떻게 하나요</summary>
+        <div class="ans">
+          <p>취침을 앞당기는 것이 유일한 정답입니다. "낮에 못 잤으니 밤에 잘 자겠지"는 반대로 갑니다.</p>
+          <ul class="plain">
+            <li>낮잠 총합 4시간 이상 → 19:00 (정상)</li>
+            <li>3시간~3시간 30분 → 18:40</li>
+            <li>2시간 30분 이하 → 18:15~18:30</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>외출한 날이나 주말은요?</summary>
+        <div class="ans">
+          <p><strong>기상 시각과 취침 시각, 이 두 개만</strong> 지키면 됩니다. 중간 낮잠은 유모차·카시트에서 자도 괜찮습니다.</p>
+          <p>외출은 낮잠 ①이 끝난 뒤나 낮잠 ③ 시간대로 잡으세요. 가장 긴 낮잠 ②는 집에서 지키는 편이 하루 전체에 유리합니다.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="note-box warn">
+      <p><strong>이럴 땐 소아청소년과에 문의하세요</strong></p>
+      <p>수면 중 숨을 멈추거나 심하게 코를 곤다 · 하루 총 수면이 11시간 미만이거나 19시간 초과인 상태가 계속된다 · 2주 이상 체중이 늘지 않거나 소변 기저귀가 하루 4회 이하다 · 수유 거부, 분수 구토, 혈변 · 38℃ 이상 발열 · 축 처지고 반응이 눈에 띄게 줄었다</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>이 플랜은 생후 15주 아기의 일반적인 수면·수유 기준을 바탕으로 구성한 육아 참고 자료이며, 진료를 대신하지 않습니다. 아기마다 편차가 크므로 4개월 영유아 건강검진 때 담당 의사와 함께 확인하세요.</p>
+    <p>좋아졌다 나빠졌다를 반복하는 것이 정상입니다. 하루가 아니라 <strong>주 단위</strong>로 비교하세요.</p>
+  </footer>
+
+</div>
