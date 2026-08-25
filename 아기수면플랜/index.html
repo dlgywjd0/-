@@ -491,28 +491,267 @@
   @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition: none !important; }
   }
+
+  /* ---------- diagnosis ---------- */
+  .compare { display: grid; gap: 1.4rem; }
+  .cmp-row .cmp-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 1rem; margin-bottom: .5rem;
+  }
+  .cmp-row .cmp-name { font-size: .84rem; font-weight: 600; letter-spacing: .02em; }
+  .cmp-row.now .cmp-name { color: var(--alert); }
+  .cmp-row.goal .cmp-name { color: var(--sleep); }
+  .cmp-row .cmp-val {
+    font-family: var(--f-mono); font-variant-numeric: tabular-nums;
+    font-size: .78rem; color: var(--muted); white-space: nowrap;
+  }
+  .band.thin { height: 22px; }
+  .band .s-none { background: var(--alert-w); border-top: 1px solid var(--alert); border-bottom: 1px solid var(--alert); }
+  .feedline.now i { background: var(--alert); }
+  .feedline.now i::after { color: var(--alert); }
+
+  .diag { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 5px; overflow: hidden; margin-top: 1.5rem; }
+  .diag .item { background: var(--card); padding: 1.05rem 1.2rem; }
+  .diag .item h4 { font-family: var(--f-body); font-size: .95rem; font-weight: 600; margin: 0 0 .4rem; }
+  .diag .item p { margin: 0; font-size: .87rem; color: var(--ink-2); }
+  .diag .item .vs {
+    font-family: var(--f-mono); font-variant-numeric: tabular-nums;
+    font-size: .78rem; color: var(--muted); margin-top: .5rem; display: block;
+  }
+  .diag .item .vs b { color: var(--alert); font-weight: 600; }
+  .diag .item .vs i { font-style: normal; color: var(--sleep); font-weight: 600; }
+  .good { border-left: 3px solid var(--wake) !important; }
+
+  .stair { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 5px; overflow: hidden; }
+  .stair .rung { background: var(--card); padding: 1.05rem 1.2rem; display: grid; grid-template-columns: 1fr auto; gap: .4rem 1rem; align-items: baseline; }
+  .stair .rung .wk { font-family: var(--f-mono); font-size: .7rem; font-weight: 600; letter-spacing: .1em; color: var(--muted); grid-column: 1 / -1; }
+  .stair .rung .what { font-size: .93rem; font-weight: 600; }
+  .stair .rung .bed { font-family: var(--f-mono); font-variant-numeric: tabular-nums; font-size: 1.05rem; font-weight: 600; color: var(--sleep); white-space: nowrap; }
+  .stair .rung .det { grid-column: 1 / -1; font-size: .86rem; color: var(--ink-2); margin-top: .2rem; }
+
+  .today { counter-reset: t; display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 5px; overflow: hidden; }
+  .today li { background: var(--card); padding: 1.05rem 1.2rem 1.05rem 3.1rem; position: relative; list-style: none; font-size: .9rem; color: var(--ink-2); }
+  .today li::before {
+    counter-increment: t; content: counter(t);
+    position: absolute; left: 1.2rem; top: 1.05rem;
+    width: 1.3rem; height: 1.3rem; border-radius: 50%;
+    background: var(--sleep); color: var(--card);
+    font-family: var(--f-mono); font-size: .72rem; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .today ol, .today { padding: 0; margin: 0; }
+  .today li strong { color: var(--ink); }
 </style>
 
 <div class="wrap">
 
   <header class="masthead">
-    <p class="eyebrow">생후 106일 · 만 15주</p>
-    <h1>106일 아가의 하루<br>수면·수유 플랜</h1>
-    <p class="lede">아침 7시 기상을 기준으로 짠 하루 설계입니다. 시각표는 지도이고, 실제 나침반은 <strong>깨어 있는 시간</strong>입니다.</p>
+    <p class="eyebrow">생후 107일 · 만 15주 · 8월 26일(수) 기준</p>
+    <h1>아인이의 하루<br>수면·수유 플랜</h1>
+    <p class="lede">8월 24~26일 기록을 읽고 다시 짠 하루 설계입니다. 시각표는 지도이고, 실제 나침반은 <strong>깨어 있는 시간</strong>입니다.</p>
 
     <dl class="stats">
-      <div class="stat"><dt>하루 총 수면</dt><dd>14~16<span class="u">시간</span></dd></div>
-      <div class="stat"><dt>낮잠</dt><dd>4<span class="u">회 · 약 4시간</span></dd></div>
-      <div class="stat"><dt>활동시간</dt><dd>1:15~1:45</dd></div>
-      <div class="stat"><dt>수유</dt><dd>6~7<span class="u">회</span></dd></div>
+      <div class="stat"><dt>지금 총 수면</dt><dd>7~9<span class="u">시간</span></dd></div>
+      <div class="stat"><dt>목표 총 수면</dt><dd>15<span class="u">시간 20분</span></dd></div>
+      <div class="stat"><dt>지금 취침</dt><dd>23:02</dd></div>
+      <div class="stat"><dt>목표 취침</dt><dd>19:10</dd></div>
     </dl>
   </header>
 
+  <section id="now">
+    <div class="sec-head">
+      <span class="sec-num">진단 — 8월 26일(수) · 생후 107일</span>
+      <h2>지금 패턴과 목표, 나란히 보기</h2>
+      <p>8월 24~26일 기록 기준. 같은 24시간(아침 6시 시작)을 실제 길이 비례로 그렸습니다.</p>
+    </div>
+
+    <div class="band-frame">
+      <div class="compare">
+
+        <div class="cmp-row now">
+          <div class="cmp-head">
+            <span class="cmp-name">지금 · 8월 25일(106일)</span>
+            <span class="cmp-val">총 수면 7시간 5분 · 낮잠 0분 · 수유 4회 710ml</span>
+          </div>
+          <div class="band thin" role="img" aria-label="8월 25일 실제: 06시 07분부터 23시 02분까지 16시간 55분 연속 각성, 밤잠 7시간 5분">
+            <span class="s-none"  style="flex: 1015"></span>
+            <span class="s-sleep" style="flex: 425"></span>
+          </div>
+          <div class="feedline now" aria-hidden="true">
+            <i style="left: 3.5%"  data-n="①"></i>
+            <i style="left: 30.5%" data-n="②"></i>
+            <i style="left: 47.6%" data-n="③"></i>
+            <i style="left: 63.3%" data-n="④"></i>
+          </div>
+          <div class="band-axis"><span>06시</span><span>11시</span><span>16시</span><span>21시</span><span>02시</span><span>06시</span></div>
+        </div>
+
+        <div class="cmp-row goal">
+          <div class="cmp-head">
+            <span class="cmp-name">목표 · 3~4주 뒤</span>
+            <span class="cmp-val">총 수면 15시간 20분 · 낮잠 4시간 30분 · 수유 5회 910ml</span>
+          </div>
+          <div class="band thin" role="img" aria-label="목표: 낮잠 4회 합계 4시간 30분, 밤잠 19시 10분부터 10시간 50분">
+            <span class="s-wake"  style="flex: 90"></span>
+            <span class="s-sleep" style="flex: 80"></span>
+            <span class="s-wake"  style="flex: 105"></span>
+            <span class="s-sleep" style="flex: 80"></span>
+            <span class="s-wake"  style="flex: 110"></span>
+            <span class="s-sleep" style="flex: 75"></span>
+            <span class="s-wake"  style="flex: 105"></span>
+            <span class="s-sleep" style="flex: 35"></span>
+            <span class="s-wake"  style="flex: 110"></span>
+            <span class="s-sleep" style="flex: 650"></span>
+          </div>
+          <div class="feedline" aria-hidden="true">
+            <i style="left: 1%"    data-n="①"></i>
+            <i style="left: 13.5%" data-n="②"></i>
+            <i style="left: 27.1%" data-n="③"></i>
+            <i style="left: 39.6%" data-n="④"></i>
+            <i style="left: 52.8%" data-n="⑤"></i>
+            <i style="left: 87.5%" data-n="⑥"></i>
+          </div>
+          <div class="band-axis"><span>06시</span><span>11시</span><span>16시</span><span>21시</span><span>02시</span><span>06시</span></div>
+        </div>
+
+      </div>
+      <div class="legend">
+        <span><i class="key sleep"></i><b>잠</b></span>
+        <span><i class="key wake"></i><b>깨어 있는 시간</b></span>
+        <span><i class="key feed"></i><b>수유</b></span>
+      </div>
+    </div>
+
+    <h3>이미 잘하고 있는 것</h3>
+    <div class="diag">
+      <div class="item good">
+        <h4>밤중 수유 없이 9시간을 갑니다</h4>
+        <p>21:19 수유 후 다음 날 06:18까지. 연속 통잠 7시간 5분은 106일 아기로서 상위권입니다. <strong>잘 자는 능력은 이미 있습니다.</strong></p>
+      </div>
+      <div class="item good">
+        <h4>회당 수유량과 기상 시각</h4>
+        <p>160~190ml는 이 월령의 상한선에 가깝고, 기상은 매일 06:07 전후로 이미 일정합니다. 수면 교육에서 가장 먼저 잡아야 할 것이 이미 잡혀 있습니다.</p>
+      </div>
+    </div>
+
+    <h3>고쳐야 할 것</h3>
+    <div class="diag">
+      <div class="item">
+        <h4>① 총 수면이 절반 수준입니다</h4>
+        <p>다른 모든 문제가 여기서 파생됩니다. 하루 5~7시간이 부족합니다.</p>
+        <span class="vs">총 수면 <b>7~9시간</b> → <i>14~16시간</i> &nbsp;·&nbsp; 낮잠 <b>0~2시간 40분</b> → <i>3시간 30분~4시간 30분</i></span>
+      </div>
+      <div class="item">
+        <h4>② 취침 23:02 — 3~4시간 늦습니다</h4>
+        <p>늦게 재우면 더 잘 것 같지만 반대입니다. 과각성 상태에서는 잠들기까지 오래 걸리고, 얕게 자고, 새벽에 더 깹니다. <strong>밤잠이 짧은 진짜 원인이 늦은 취침입니다.</strong></p>
+        <span class="vs">취침 <b>23:02</b> → <i>19:00~19:30</i></span>
+      </div>
+      <div class="item">
+        <h4>③ 깨어 있는 시간이 너무 깁니다</h4>
+        <p>8월 25일은 06:07부터 23:02까지 <strong>16시간 55분을 연속으로 깨어</strong> 있었습니다. 이 상태로는 재우려 해도 잠들지 못합니다. 과각성 → 낮잠 실패 → 더 과각성 → 늦은 취침 → 짧은 밤잠. 이 고리를 끊는 것이 이번 플랜의 전부입니다.</p>
+        <span class="vs">최장 각성 <b>16시간 55분</b> → <i>1시간 30분~1시간 50분</i></span>
+      </div>
+      <div class="item">
+        <h4>④ 수유 4회 710ml — 양이 아니라 횟수</h4>
+        <p>회당 양은 충분합니다. 한 번을 더 넣으면 됩니다. 06:58 → 13:26의 6시간 28분 공백이 총량 부족의 직접 원인입니다.</p>
+        <span class="vs">4회 <b>710ml</b> → <i>5회 900~1,000ml</i></span>
+      </div>
+      <div class="item">
+        <h4>⑤ 저녁 터미타임 — 오늘부터 중단</h4>
+        <p>20:58 · 21:11 · 22:20에 터미타임을 하고 있습니다. 터미타임은 아기를 각성시키는 활동이라 취침을 그만큼 밀어냅니다. <strong>오전~오후 3시까지만</strong> 하세요.</p>
+      </div>
+    </div>
+
+    <div class="note-box warn">
+      <p><strong>먼저 확인해 주세요 — 낮잠을 기록하지 않으신 건가요, 정말 안 자는 건가요?</strong></p>
+      <p>터미타임은 1분 단위까지 기록되어 있는데 낮잠만 0분이라, 실제로 못 잤을 가능성이 높아 보입니다. 오늘부터 낮잠도 함께 기록해 주세요 — 판단이 완전히 달라집니다. 총 수면 11시간 미만이 정말로 계속되고 있다면, 4개월 검진을 앞당겨 이 기록을 소아과에 보여주세요.</p>
+    </div>
+  </section>
+
   <section>
     <div class="sec-head">
-      <span class="sec-num">한눈에</span>
-      <h2>24시간이 이렇게 나뉩니다</h2>
-      <p>아침 7시부터 다음 날 아침 7시까지. 길이가 실제 시간에 비례합니다.</p>
+      <span class="sec-num">전환</span>
+      <h2>3~4주에 걸쳐 계단으로 내려옵니다</h2>
+      <p>취침을 한 번에 23시에서 19시로 옮기면 실패합니다. 낮잠을 먼저 만들면 취침은 뒤따라옵니다.</p>
+    </div>
+
+    <div class="stair">
+      <div class="rung">
+        <span class="wk">1주차 · 107–113일</span>
+        <span class="what">낮잠 만들기 + 저녁 자극 끊기</span>
+        <span class="bed">취침 21:30</span>
+        <span class="det">기상 06:00 유지. <strong>깬 시각 + 1시간 30분에 알람</strong>을 맞춰두고, 울리면 무조건 재우기 시작합니다. 이번 주는 안아서 재워도, 유모차에서 재워도 <strong>자기만 하면 성공</strong>입니다. 수유는 5회로(06:15 · 09:15 · 12:15 · 15:15 · 18:30), 19시 이후 터미타임은 전면 중단, 20시부터 조명을 낮춥니다.</span>
+      </div>
+      <div class="rung">
+        <span class="wk">2주차 · 114–120일</span>
+        <span class="what">취침 앞당기기</span>
+        <span class="bed">취침 20:30</span>
+        <span class="det">낮잠 4회를 07:30 · 10:30 · 13:45 · 16:45 근처로 자리 잡습니다. 목욕·수면 의식을 19:20으로 고정(매일 같은 순서 30~40분). 낮잠 총합이 3시간을 넘기면 저녁에 아기가 먼저 졸려합니다 — 그 신호를 따라가세요.</span>
+      </div>
+      <div class="rung">
+        <span class="wk">3주차 · 121–127일</span>
+        <span class="what">목표 근처 도달</span>
+        <span class="bed">취침 19:45</span>
+        <span class="det">목욕 18:30 → 마지막 수유 19:10 → 취침 19:45. 밤중 수유가 새로 생기면 응해주되 불을 켜지 않고 10~15분 안에 마무리합니다. 낮잠 4시간 + 밤잠 10시간이면 성공입니다.</span>
+      </div>
+      <div class="rung">
+        <span class="wk">4주차 · 128일~</span>
+        <span class="what">정착, 그리고 수면 교육 시작</span>
+        <span class="bed">취침 19:10</span>
+        <span class="det">아래 목표 시간표로 안착합니다. 이 시점부터 "졸리지만 깨어 있게 눕히기"를 시작하면 됩니다.</span>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <p><strong>초반에 새벽 수유가 새로 생겨도 정상입니다.</strong></p>
+      <p>지금 9시간을 버티는 건 늦게 자서 밤이 짧기 때문입니다. 밤이 11시간으로 늘면 중간에 한 번 먹는 게 자연스럽습니다. 후퇴가 아니라 정상화입니다.</p>
+    </div>
+
+    <h3>목표 시간표 — 6시 기상 기준</h3>
+    <div class="scroll">
+      <table>
+        <caption>수유 5회 910ml · 낮잠 4시간 30분 · 밤잠 10시간 50분 · 총 수면 15시간 20분</caption>
+        <thead><tr><th class="num">시각</th><th>내용</th><th class="num">활동시간</th></tr></thead>
+        <tbody>
+          <tr><td class="num">06:00</td><td>기상 — 이미 잘 되고 있는 부분</td><td class="num">—</td></tr>
+          <tr><td class="num">06:15</td><td>수유 ① 190ml</td><td class="num">—</td></tr>
+          <tr><td class="num">07:30~08:50</td><td><strong>낮잠 ①</strong> 1시간 20분</td><td class="num">1:30</td></tr>
+          <tr><td class="num">09:15</td><td>수유 ② 180ml</td><td class="num">—</td></tr>
+          <tr><td class="num">10:35~11:55</td><td><strong>낮잠 ②</strong> 1시간 20분 — 가장 긴 잠</td><td class="num">1:45</td></tr>
+          <tr><td class="num">12:30</td><td>수유 ③ 180ml</td><td class="num">—</td></tr>
+          <tr><td class="num">13:45~15:00</td><td><strong>낮잠 ③</strong> 1시간 15분</td><td class="num">1:50</td></tr>
+          <tr><td class="num">15:30</td><td>수유 ④ 180ml</td><td class="num">—</td></tr>
+          <tr><td class="num">16:45~17:20</td><td><strong>낮잠 ④</strong> 쪽잠 35분</td><td class="num">1:45</td></tr>
+          <tr><td class="num">18:00</td><td>목욕 → 수면 의식</td><td class="num">—</td></tr>
+          <tr><td class="num">18:40</td><td>수유 ⑤ 180ml, 어두운 조명</td><td class="num">—</td></tr>
+          <tr><td class="num">19:10</td><td><strong>취침</strong></td><td class="num">1:50</td></tr>
+          <tr><td class="num">02~04시</td><td>밤중 수유 1회 150ml — 생겨도 정상</td><td class="num">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">오늘</span>
+      <h2>107일차, 딱 3가지만</h2>
+      <p>이번 주에 이것만 하면 됩니다. 나머지는 따라옵니다.</p>
+    </div>
+    <ol class="today">
+      <li><strong>깬 시각 + 1시간 30분에 알람.</strong> 울리면 무조건 재우기 시작합니다. 오늘은 06:07 기상이니 <strong>07:37이 첫 낮잠</strong>입니다.</li>
+      <li><strong>저녁 7시 이후 터미타임·놀이 중단.</strong> 20시부터 집 조명을 절반으로 낮추세요.</li>
+      <li><strong>수유를 한 번 더.</strong> 4회 710ml → 5회 900ml 근처로. 회당 양은 그대로 두고 횟수만 늘립니다.</li>
+    </ol>
+    <div class="note-box">
+      <p>취침은 오늘 억지로 당기지 마세요. <strong>낮잠이 두 번만 들어가도 저녁에 아기가 먼저 졸려합니다.</strong></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">참고 — 표준안</span>
+      <h2>15주 아기의 24시간은 이렇게 나뉩니다</h2>
+      <p>아침 7시 기상을 가정한 일반 기준입니다. 아래 타임라인·수유·커리큘럼은 모두 이 표준안 기준이며, 우리 아기는 위의 6시 기상 목표 시간표를 따르세요.</p>
     </div>
 
     <div class="band-frame">
