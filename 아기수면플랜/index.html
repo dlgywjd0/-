@@ -564,22 +564,157 @@
     font-family: var(--f-mono); font-size: .66rem; color: var(--muted); }
   .bathmark { background: var(--wake) !important; }
   .bathmark::after { color: var(--wake) !important; }
+
+  /* ---------- today rail states ---------- */
+  .row.done .label, .row.done .note, .row.done .t { opacity: .5; }
+  .row.done .mark::after { background: var(--muted) !important; border-color: var(--muted) !important; box-shadow: none !important; }
+  .row.live .mark::after {
+    width: 13px; height: 13px; margin-left: -6.5px; top: .68rem;
+    background: var(--sleep); border-color: var(--sleep);
+    box-shadow: 0 0 0 5px var(--sleep-w);
+  }
+  .tag {
+    display: inline-block; margin-left: .5rem; vertical-align: 1px;
+    font-family: var(--f-mono); font-size: .62rem; font-weight: 600;
+    letter-spacing: .08em; padding: .12rem .4rem; border-radius: 2px;
+    border: 1px solid var(--line); color: var(--muted);
+  }
+  .tag.live { border-color: var(--sleep); color: var(--sleep); background: var(--sleep-w); }
+  .tag.done { border-color: var(--wake); color: var(--wake); background: var(--wake-w); }
+  .ww {
+    font-family: var(--f-mono); font-variant-numeric: tabular-nums;
+    font-size: .7rem; color: var(--wake); margin-left: .5rem; font-weight: 600;
+  }
+  .daysum {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+    gap: 1px; margin-top: 1.75rem; background: var(--line);
+    border: 1px solid var(--line); border-radius: 4px; overflow: hidden;
+  }
+  .daysum div { background: var(--card); padding: .85rem 1rem; }
+  .daysum dt { font-size: .72rem; color: var(--muted); margin: 0 0 .3rem; }
+  .daysum dd { margin: 0; font-family: var(--f-mono); font-variant-numeric: tabular-nums;
+    font-size: 1.05rem; font-weight: 600; }
+  .daysum dd .u { font-size: .75rem; font-weight: 400; color: var(--muted); }
 </style>
 
 <div class="wrap">
 
   <header class="masthead">
     <p class="eyebrow">생후 107일 · 62cm · 7.6kg · 8월 26일(수) 기준</p>
-    <h1>아인이의 하루<br>수면·수유 플랜</h1>
-    <p class="lede">8월 24~26일 기록을 읽고 다시 짠 하루 설계입니다. 시각표는 지도이고, 실제 나침반은 <strong>깨어 있는 시간</strong>입니다.</p>
+    <h1>아인이의 오늘<br>수면·수유 플랜</h1>
+    <p class="lede">오늘 07:32 첫 낮잠까지의 실제 기록에 맞춰 다시 짠 하루입니다. 시각표는 지도이고, 실제 나침반은 <strong>깨어 있는 시간</strong>입니다.</p>
 
     <dl class="stats">
-      <div class="stat"><dt>지금 총 수면</dt><dd>7~9<span class="u">시간</span></dd></div>
-      <div class="stat"><dt>목표 총 수면</dt><dd>15<span class="u">시간 20분</span></dd></div>
-      <div class="stat"><dt>지금 취침</dt><dd>23:02</dd></div>
-      <div class="stat"><dt>목표 취침</dt><dd>19:10</dd></div>
+      <div class="stat"><dt>어제 총 수면</dt><dd>7<span class="u">시간 5분</span></dd></div>
+      <div class="stat"><dt>오늘 목표</dt><dd>13<span class="u">시간 48분</span></dd></div>
+      <div class="stat"><dt>어제 취침</dt><dd>23:02</dd></div>
+      <div class="stat"><dt>오늘 취침</dt><dd>21:30</dd></div>
     </dl>
   </header>
+
+  <section id="today">
+    <div class="sec-head">
+      <span class="sec-num">오늘 — 8월 26일(수) · 생후 107일</span>
+      <h2>07:32, 첫 낮잠에 들어갔습니다</h2>
+      <p>기상 06:07 → 잠든 시각 07:32. 깨어 있던 시간이 <strong>1시간 25분</strong>으로, 계획한 1시간 30분과 거의 정확히 맞습니다. 오늘 하루는 여기서부터 이어집니다.</p>
+    </div>
+
+    <div class="rail">
+      <div class="row done">
+        <div class="t">06:07</div><div class="mark"></div>
+        <div class="body"><div class="label">기상<span class="tag done">완료</span></div>
+        <div class="note">기상 시각은 이미 매일 일정합니다. 이것만 유지하면 나머지는 따라옵니다.</div></div>
+      </div>
+      <div class="row done feed">
+        <div class="t">06:18</div><div class="mark"></div>
+        <div class="body"><div class="label">수유 ①<span class="dur">190ml</span><span class="tag done">완료</span></div></div>
+      </div>
+      <div class="row live sleep">
+        <div class="t">07:32</div><div class="mark"></div>
+        <div class="body"><div class="label">낮잠 ① 시작<span class="tag live">지금</span><span class="ww">활동 1:25</span></div>
+        <div class="note">트림 후 잠들었습니다. 목표는 <strong>1시간 20분, ~08:55 기상</strong>. 09:10이 넘도록 자고 있으면 깨우세요 — 아침잠이 길어지면 하루 전체가 밀립니다.</div></div>
+      </div>
+      <div class="row feed">
+        <div class="t">09:10</div><div class="mark"></div>
+        <div class="body"><div class="label">수유 ②<span class="dur">160ml</span></div>
+        <div class="note">고개를 돌리면 남아도 중단합니다.</div></div>
+      </div>
+      <div class="row sleep">
+        <div class="t">10:35</div><div class="mark"></div>
+        <div class="body"><div class="label">낮잠 ②<span class="dur">~11:55 · 80분</span><span class="ww">활동 1:40</span></div>
+        <div class="note">가장 깊게 자는 시간대입니다. 외출을 겹치지 마세요.</div></div>
+      </div>
+      <div class="row feed">
+        <div class="t">12:15</div><div class="mark"></div>
+        <div class="body"><div class="label">수유 ③<span class="dur">160ml</span></div></div>
+      </div>
+      <div class="row sleep">
+        <div class="t">13:40</div><div class="mark"></div>
+        <div class="body"><div class="label">낮잠 ③<span class="dur">~15:00 · 80분</span><span class="ww">활동 1:45</span></div>
+        <div class="note">유모차·아기띠 이동 잠으로 대체해도 괜찮은 낮잠입니다.</div></div>
+      </div>
+      <div class="row feed">
+        <div class="t">15:20</div><div class="mark"></div>
+        <div class="body"><div class="label">수유 ④<span class="dur">160ml</span></div></div>
+      </div>
+      <div class="row sleep">
+        <div class="t">16:45</div><div class="mark"></div>
+        <div class="body"><div class="label">낮잠 ④<span class="dur">~17:30 · 45분</span><span class="ww">활동 1:45</span></div>
+        <div class="note">17:30에는 반드시 깨웁니다.</div></div>
+      </div>
+      <div class="row sleep">
+        <div class="t">19:00</div><div class="mark"></div>
+        <div class="body"><div class="label">낮잠 ⑤ 저녁 쪽잠<span class="dur">~19:30 · 30분</span><span class="ww">활동 1:30</span></div>
+        <div class="note">취침이 아직 21:30이라 오늘은 낮잠이 5회입니다. 3주차에 없어집니다. <strong>이 시각 이후 터미타임·놀이 금지.</strong></div></div>
+      </div>
+      <div class="row wake">
+        <div class="t">20:15</div><div class="mark"></div>
+        <div class="body"><div class="label">목욕<span class="dur">5~10분</span></div>
+        <div class="note">물 37~38℃, 방 22~24℃. 물놀이·까꿍놀이 없이 조용하게. 취침 75분 전이 자리입니다.</div></div>
+      </div>
+      <div class="row wake">
+        <div class="t">20:30</div><div class="mark"></div>
+        <div class="body"><div class="label">보습 → 마사지 → 잠옷·슬립색<span class="dur">15분</span></div>
+        <div class="note">목욕 후 5분 안에 보습제. 다리 → 팔 → 배(시계 방향) → 등 순서로 3~5분.</div></div>
+      </div>
+      <div class="row feed">
+        <div class="t">20:55</div><div class="mark"></div>
+        <div class="body"><div class="label">수유 ⑤ 마지막 수유<span class="dur">170ml</span></div>
+        <div class="note">어두운 조명, 말 걸지 않기. 먹다 잠들면 살짝 깨워 눕힙니다.</div></div>
+      </div>
+      <div class="row pivot">
+        <div class="t">21:30</div><div class="mark"></div>
+        <div class="body"><div class="label">취침<span class="ww">활동 2:00</span></div>
+        <div class="note">어제 23:02에서 <strong>1시간 30분 앞당깁니다.</strong> 오늘은 여기까지가 목표입니다 — 더 당기려 하지 마세요.</div></div>
+      </div>
+    </div>
+
+    <dl class="daysum">
+      <div><dt>수유</dt><dd>5<span class="u">회 · 840ml</span></dd></div>
+      <div><dt>낮잠</dt><dd>5<span class="u">회 · 5시간 18분</span></dd></div>
+      <div><dt>밤잠</dt><dd>8<span class="u">시간 30분</span></dd></div>
+      <div><dt>총 수면</dt><dd>13<span class="u">시간 48분</span></dd></div>
+    </dl>
+
+    <div class="note-box">
+      <p><strong>시각이 어긋나도 괜찮습니다 — 기준은 시계가 아니라 활동시간입니다.</strong></p>
+      <p>낮잠 ①이 40분 만에 깨면 그 뒤의 모든 시각을 그만큼 앞으로 당기세요. 계산은 하나뿐입니다.</p>
+      <ul class="plain">
+        <li>아침 첫 낮잠 전 → 깬 시각 <strong>+ 1시간 30분</strong></li>
+        <li>낮잠 사이 → 깬 시각 <strong>+ 1시간 40~45분</strong></li>
+        <li>낮잠 ④ 이후 저녁 쪽잠 → 깬 시각 <strong>+ 1시간 30분</strong></li>
+      </ul>
+      <p>낮잠이 30~40분에 깼다면 다음 활동시간을 <strong>15~20분 줄여</strong> 다음 잠을 앞당깁니다. 하품·눈 비비기가 보이면 시계와 상관없이 그때가 눕힐 때입니다.</p>
+    </div>
+
+    <h3>오늘 지킬 것 4가지</h3>
+    <ol class="today">
+      <li><strong>깬 시각 + 1시간 30분에 알람.</strong> 첫 낮잠은 이미 07:32에 성공했습니다. 깨는 대로 다시 맞추세요.</li>
+      <li><strong>저녁 7시 이후 터미타임·놀이 중단.</strong> 20시부터 집 조명을 절반으로 낮추세요.</li>
+      <li><strong>수유를 4회 → 5회로.</strong> 회당 180ml 상한, 3시간 간격으로 고르게. 총량 840ml는 어제(710ml)와 크게 다르지 않습니다 — 늘리는 게 아니라 나누는 겁니다.</li>
+      <li><strong>목욕 20:15, 취침 21:30.</strong> 오늘은 여기까지. 다음 주에 20:30으로 옮깁니다.</li>
+    </ol>
+  </section>
 
   <section id="now">
     <div class="sec-head">
@@ -851,206 +986,35 @@
 
   </section>
 
-  <section>
-    <div class="sec-head">
-      <span class="sec-num">오늘</span>
-      <h2>107일차, 딱 4가지만</h2>
-      <p>이번 주에 이것만 하면 됩니다. 나머지는 따라옵니다.</p>
-    </div>
-    <ol class="today">
-      <li><strong>깬 시각 + 1시간 30분에 알람.</strong> 울리면 무조건 재우기 시작합니다. 오늘은 06:07 기상이니 <strong>07:37이 첫 낮잠</strong>입니다.</li>
-      <li><strong>저녁 7시 이후 터미타임·놀이 중단.</strong> 20시부터 집 조명을 절반으로 낮추세요.</li>
-      <li><strong>수유를 4회 → 5회로.</strong> 회당은 180ml를 상한으로 두고 3시간 간격으로 고르게. 총량은 750~900ml — 지금과 크게 다르지 않습니다. 늘리는 게 아니라 나누는 겁니다.</li>
-      <li><strong>목욕을 20:15에 고정.</strong> 오늘부터 매일 같은 시각, 5~10분, 조용히. 취침 70분 전이 자리입니다.</li>
-    </ol>
-    <div class="note-box">
-      <p>취침은 오늘 억지로 당기지 마세요. <strong>낮잠이 두 번만 들어가도 저녁에 아기가 먼저 졸려합니다.</strong></p>
-    </div>
-  </section>
-
-  <section>
-    <div class="sec-head">
-      <span class="sec-num">참고 — 표준안</span>
-      <h2>15주 아기의 24시간은 이렇게 나뉩니다</h2>
-      <p>아침 7시 기상을 가정한 일반 기준입니다. 아래 타임라인·수유·커리큘럼은 모두 이 표준안 기준이며, 우리 아기는 위의 6시 기상 목표 시간표를 따르세요.</p>
-    </div>
-
-    <div class="band-frame">
-      <div class="band" role="img" aria-label="24시간 중 잠과 깨어 있는 시간의 비율: 낮잠 4회 약 4시간, 밤잠 12시간">
-        <span class="s-wake"  style="flex: 80"></span>
-        <span class="s-sleep" style="flex: 80"></span>
-        <span class="s-wake"  style="flex: 90"></span>
-        <span class="s-sleep" style="flex: 80"></span>
-        <span class="s-wake"  style="flex: 90"></span>
-        <span class="s-sleep" style="flex: 75"></span>
-        <span class="s-wake"  style="flex: 105"></span>
-        <span class="s-sleep" style="flex: 30"></span>
-        <span class="s-wake"  style="flex: 90"></span>
-        <span class="s-sleep" style="flex: 720"></span>
-      </div>
-      <div class="feedline" aria-hidden="true">
-        <i style="left: 0.7%"  data-n="①"></i>
-        <i style="left: 12.5%" data-n="②"></i>
-        <i style="left: 25%"   data-n="③"></i>
-        <i style="left: 35.4%" data-n="④"></i>
-        <i style="left: 49%"   data-n="⑤"></i>
-        <i style="left: 63.5%" data-n="⑥"></i>
-        <i style="left: 83.3%" data-n="⑦"></i>
-      </div>
-      <div class="band-axis">
-        <span>07시</span><span>12시</span><span>17시</span><span>22시</span><span>03시</span><span>07시</span>
-      </div>
-      <div class="legend">
-        <span><i class="key sleep"></i><b>잠</b> 낮잠 4시간 + 밤잠 12시간</span>
-        <span><i class="key wake"></i><b>깨어 있는 시간</b> 8시간</span>
-        <span><i class="key feed"></i><b>수유</b> 7회</span>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="sec-head">
-      <span class="sec-num">01 — 하루 타임라인</span>
-      <h2>몇 시에 자고, 먹고, 일어나나</h2>
-      <p>기상이 6시나 8시라면 아래 모든 시각을 그대로 밀거나 당기면 됩니다.</p>
-    </div>
-
-    <div class="rail">
-      <div class="row pivot">
-        <div class="t">07:00</div><div class="mark"></div>
-        <div class="body"><div class="label">기상</div>
-        <div class="note">커튼을 열고 밝은 빛을 보여줍니다. 7:30이 넘었으면 자고 있어도 깨웁니다. <strong>하루에서 유일하게 고정할 시각입니다.</strong></div></div>
-      </div>
-      <div class="row feed">
-        <div class="t">07:10</div><div class="mark"></div>
-        <div class="body"><div class="label">수유 ①<span class="dur">160~180ml</span></div>
-        <div class="note">하루 중 가장 든든하게 먹이는 수유.</div></div>
-      </div>
-      <div class="row wake">
-        <div class="t">~08:20</div><div class="mark"></div>
-        <div class="body"><div class="label">활동<span class="dur">1시간 20분</span></div>
-        <div class="note">배밀이 연습 5~10분, 기저귀, 눈 맞추고 이야기하기.</div></div>
-      </div>
-      <div class="row sleep">
-        <div class="t">08:20</div><div class="mark"></div>
-        <div class="body"><div class="label">낮잠 ① 아침잠<span class="dur">~09:40 · 80분</span></div>
-        <div class="note">하루 중 가장 쉽게 잠드는 잠. 10시까지는 깨웁니다.</div></div>
-      </div>
-      <div class="row feed">
-        <div class="t">10:00</div><div class="mark"></div>
-        <div class="body"><div class="label">수유 ②<span class="dur">150~170ml</span></div></div>
-      </div>
-      <div class="row wake">
-        <div class="t">~11:10</div><div class="mark"></div>
-        <div class="body"><div class="label">활동<span class="dur">1시간 30분</span></div>
-        <div class="note">산책과 외출을 넣기 가장 좋은 시간대.</div></div>
-      </div>
-      <div class="row sleep">
-        <div class="t">11:10</div><div class="mark"></div>
-        <div class="body"><div class="label">낮잠 ② 오전잠<span class="dur">~12:30 · 80분</span></div>
-        <div class="note"><strong>하루 중 가장 깊고 긴 잠.</strong> 여기에는 외출 일정을 겹치지 마세요.</div></div>
-      </div>
-      <div class="row feed">
-        <div class="t">13:00</div><div class="mark"></div>
-        <div class="body"><div class="label">수유 ③<span class="dur">150~170ml</span></div></div>
-      </div>
-      <div class="row sleep">
-        <div class="t">14:00</div><div class="mark"></div>
-        <div class="body"><div class="label">낮잠 ③ 오후잠<span class="dur">~15:15 · 75분</span></div>
-        <div class="note">유모차·아기띠 이동 잠으로 대체해도 괜찮은 유일한 낮잠.</div></div>
-      </div>
-      <div class="row feed">
-        <div class="t">15:30</div><div class="mark"></div>
-        <div class="body"><div class="label">수유 ④<span class="dur">150~170ml</span></div></div>
-      </div>
-      <div class="row sleep">
-        <div class="t">17:00</div><div class="mark"></div>
-        <div class="body"><div class="label">낮잠 ④ 저녁 쪽잠<span class="dur">~17:30 · 30분</span></div>
-        <div class="note">취침까지 버티게 해주는 짧은 잠. <strong>17:30에는 반드시 깨웁니다.</strong></div></div>
-      </div>
-      <div class="row wake">
-        <div class="t">18:15</div><div class="mark"></div>
-        <div class="body"><div class="label">목욕 · 수면 의식<span class="dur">30~40분</span></div>
-        <div class="note">목욕 → 로션 마사지 → 잠옷·슬립색 → 어두운 방에서 자장가. 매일 같은 순서, 같은 시간.</div></div>
-      </div>
-      <div class="row feed">
-        <div class="t">18:45</div><div class="mark"></div>
-        <div class="body"><div class="label">수유 ⑤ 마지막 수유<span class="dur">160~180ml</span></div>
-        <div class="note">조명은 최소로, 말을 걸지 않습니다. 먹다 잠들면 살짝 깨워 눕힙니다.</div></div>
-      </div>
-      <div class="row pivot">
-        <div class="t">19:00</div><div class="mark"></div>
-        <div class="body"><div class="label">취침</div>
-        <div class="note">졸리지만 <strong>깨어 있는 상태</strong>로 등을 대고 눕힙니다. 이 월령에 19시는 이른 게 아니라 적정입니다.</div></div>
-      </div>
-      <div class="row feed">
-        <div class="t">22:15</div><div class="mark"></div>
-        <div class="body"><div class="label">수유 ⑥ 꿈수유<span class="dur">선택 · 120~150ml</span></div>
-        <div class="note">불을 켜지 않고 살짝 깨워 먹인 뒤 바로 눕힙니다. 2주 해보고 새벽 각성이 줄지 않으면 뺍니다.</div></div>
-      </div>
-      <div class="row feed">
-        <div class="t">02~04시</div><div class="mark"></div>
-        <div class="body"><div class="label">수유 ⑦ 밤중 수유<span class="dur">120~150ml</span></div>
-        <div class="note">이 시기에 1회는 정상입니다. 말·불·놀이 없이 10~15분 안에 마칩니다.</div></div>
-      </div>
-      <div class="row pivot">
-        <div class="t">07:00</div><div class="mark"></div>
-        <div class="body"><div class="label">다시 기상</div>
-        <div class="note">밤에 잘 못 잤어도 기상은 30분 이상 밀지 않습니다. 오늘의 기상 시각이 오늘 밤 잠을 결정합니다.</div></div>
-      </div>
-    </div>
-
-    <h3>기상 시간이 다르다면</h3>
-    <div class="scroll">
-      <table>
-        <thead>
-          <tr><th>구분</th><th class="num">6시 기상</th><th class="num">7시 기상 (기본)</th><th class="num">8시 기상</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>기상 · 수유 ①</td><td class="num">06:00</td><td class="num">07:00</td><td class="num">08:00</td></tr>
-          <tr><td>낮잠 ①</td><td class="num">07:20~08:30</td><td class="num">08:20~09:40</td><td class="num">09:20~10:30</td></tr>
-          <tr><td>낮잠 ②</td><td class="num">10:00~11:30</td><td class="num">11:10~12:30</td><td class="num">12:00~13:30</td></tr>
-          <tr><td>낮잠 ③</td><td class="num">13:00~14:15</td><td class="num">14:00~15:15</td><td class="num">15:00~16:15</td></tr>
-          <tr><td>낮잠 ④</td><td class="num">16:00~16:40</td><td class="num">17:00~17:30</td><td class="num">17:50~18:20</td></tr>
-          <tr><td>마지막 수유</td><td class="num">17:45</td><td class="num">18:45</td><td class="num">19:20</td></tr>
-          <tr><td>취침</td><td class="num">18:00~18:30</td><td class="num">19:00</td><td class="num">19:40~20:00</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="note-box">
-      <p><strong>시계보다 중요한 것 — 활동시간</strong></p>
-      <p>마지막으로 깬 시각부터 세어, 아침 첫 낮잠 전은 <strong>1시간 15~30분</strong>, 낮잠 사이는 <strong>1시간 30분</strong>, 마지막 낮잠에서 취침까지는 <strong>1시간 30~45분</strong>입니다.</p>
-      <p>하품·눈 비비기·시선이 멍해짐이 보이면 <strong>그때부터 5~10분 안에</strong> 눕히세요. 놓치면 과각성 상태가 되어 오히려 더 못 잡니다.</p>
-    </div>
-  </section>
 
   <section>
     <div class="sec-head">
       <span class="sec-num">02 — 수유</span>
       <h2>얼마나 먹여야 하나</h2>
-      <p>회당 몇 ml인지보다 하루 총량이 맞는지가 훨씬 중요합니다.</p>
+      <p>회당 몇 ml인지보다 간격이 고른지가 훨씬 중요합니다.</p>
     </div>
 
-    <div class="note-box">
-      <p><strong>하루 총량(ml) = 체중(kg) × 150</strong> — 단, 하루 1,000ml는 넘기지 않습니다.</p>
-      <p>체중을 모르면 15주 평균(남아 약 6.6kg / 여아 약 6.0kg)으로 시작해 조정하세요.</p>
+    <div class="note-box warn">
+      <p><strong>표준 계산식은 아인이에게 적용하지 않습니다.</strong></p>
+      <p>흔히 쓰는 공식은 <span style="font-family:var(--f-mono)">하루 총량 = 체중(kg) × 150</span>입니다. 7.6kg이면 1,140ml가 나오는데, 이건 평균 체중 아기를 위한 값입니다. <strong>710ml를 먹으면서 상위 백분위까지 자라고 있다면 아인이에게는 그 정도가 충분한 양</strong>이라는 뜻입니다. 계산식보다 성장 곡선이 우선입니다.</p>
     </div>
 
     <div class="scroll">
       <table>
-        <caption>분유 기준 · 하루 총량과 회당 수유량</caption>
+        <caption>아인이 기준 · 총량이 아니라 배분을 바꿉니다</caption>
         <thead>
-          <tr><th class="num">체중</th><th class="num">하루 총량</th><th class="num">6회로 나누면</th><th class="num">7회로 나누면</th></tr>
+          <tr><th></th><th class="num">어제(8/25)</th><th class="num">바꿀 방향</th></tr>
         </thead>
         <tbody>
-          <tr><td class="num">5.5kg</td><td class="num">825ml</td><td class="num">회당 140ml</td><td class="num">회당 120ml</td></tr>
-          <tr><td class="num">6.0kg</td><td class="num">900ml</td><td class="num">회당 150ml</td><td class="num">회당 130ml</td></tr>
-          <tr><td class="num">6.5kg</td><td class="num">975ml</td><td class="num">회당 160ml</td><td class="num">회당 140ml</td></tr>
-          <tr><td class="num">7.0kg 이상</td><td class="num">1,000ml</td><td class="num">회당 170ml</td><td class="num">회당 145ml</td></tr>
+          <tr><td>수유 횟수</td><td class="num">4회</td><td class="num">5회</td></tr>
+          <tr><td>회당 수유량</td><td class="num">160~190ml</td><td class="num">150~180ml (180 상한)</td></tr>
+          <tr><td>하루 총량</td><td class="num">710ml</td><td class="num">750~900ml</td></tr>
+          <tr><td>최장 수유 간격</td><td class="num">6시간 28분</td><td class="num">3~3시간 30분</td></tr>
         </tbody>
       </table>
     </div>
+
+    <p>고칠 것은 06:58 → 13:26의 <strong>6시간 28분 공백</strong>입니다. 간격이 벌어지면 다음 수유에서 몰아 먹게 되고, 몰아 먹는 습관이 과다 수유로 이어집니다. 3시간 간격으로 고르게 나누면 총량은 비슷하게 유지되면서 몰아 먹기가 사라집니다.</p>
 
     <h3>모유 수유라면</h3>
     <p>양을 재지 않습니다. 하루 <strong>6~8회</strong>, 한 번에 양쪽 15~20분씩. 대신 아래 지표로 확인합니다.</p>
@@ -1082,8 +1046,8 @@
   <section>
     <div class="sec-head">
       <span class="sec-num">03 — 수면 교육</span>
-      <h2>4주 커리큘럼</h2>
-      <p>주차는 순서입니다. 앞 단계가 자리 잡기 전에 다음 주로 넘어가지 마세요.</p>
+      <h2>전환과 나란히 가는 4단계</h2>
+      <p>위의 주차별 취침 이동과 <strong>병행</strong>합니다. 1·2단계는 이번 주부터 바로, 3·4단계는 취침이 20:30 아래로 내려온 뒤에 시작하세요.</p>
     </div>
 
     <div class="note-box warn">
@@ -1093,28 +1057,28 @@
 
     <div class="steps">
       <div class="step">
-        <span class="wk">1주차 · DAY 1–7</span>
+        <span class="wk">1단계 · 이번 주부터</span>
         <h4>관찰과 환경 세팅</h4>
-        <p>아무것도 바꾸지 않습니다. 기상 시각 하나만 고정하고 3~4일 기록합니다. 잠든 시각, 깬 시각, 수유 시각과 양.</p>
+        <p>기상 시각을 고정하고(06:00 유지) 3~4일 기록합니다. 잠든 시각, 깬 시각, 수유 시각과 양 — <strong>낮잠도 빠짐없이</strong> 찍어주세요.</p>
         <p>환경: 암막 커튼, 백색소음(50dB 전후, 밤새 켜둠), 실내 20~22℃·습도 40~60%, 침대 안은 완전히 비우기.</p>
-        <p class="goal">성공 기준 — 기상 시각이 7일 중 5일 이상 ±30분 안에 들어옴</p>
+        <p class="goal">성공 기준 — 기상 시각이 7일 중 5일 이상 ±30분 안에 들어옴 (이미 달성 중입니다)</p>
       </div>
       <div class="step">
-        <span class="wk">2주차 · DAY 8–14</span>
+        <span class="wk">2단계 · 이번 주부터</span>
         <h4>수면 의식 고정</h4>
         <p>밤 의식을 매일 같은 순서, 같은 시간(총 30~40분)으로 반복합니다. 목욕 → 마사지 → 슬립색 → 자장가 → 마지막 수유 → 눕히기.</p>
         <p>낮잠 의식은 이 의식의 <strong>5분짜리 축소판</strong>으로. 마지막 수유는 눕히기 직전이 아니라 의식 중간에 배치해, 먹다 잠드는 습관을 미리 막습니다.</p>
         <p class="goal">성공 기준 — 같은 순서의 수면 의식 7일 연속</p>
       </div>
       <div class="step">
-        <span class="wk">3주차 · DAY 15–21</span>
+        <span class="wk">3단계 · 취침 20:30 이후</span>
         <h4>졸리지만 깨어 있게 눕히기</h4>
         <p>눕히는 시점을 며칠에 걸쳐 조금씩 앞당깁니다. ① 잠든 직후 → ② 눈이 반쯤 감긴 상태 → ③ 하품하고 조용해졌지만 눈은 뜬 상태. 각 단계 2~3일.</p>
         <p>울면 바로 안지 말고 <strong>손 얹기 → 토닥이기 → 안아서 진정 → 다시 졸린 상태로 눕히기</strong>. 안은 채로 재우지 않는 것이 핵심입니다. 밤잠에만 먼저 적용하세요.</p>
         <p class="goal">성공 기준 — 밤잠에서 주 2~3회, 침대에 눕은 채로 잠듦</p>
       </div>
       <div class="step">
-        <span class="wk">4주차 · DAY 22–28</span>
+        <span class="wk">4단계 · 취침 20:00 이후</span>
         <h4>밤중 각성 다루기</h4>
         <p>밤에 소리가 나면 <strong>3~5분 기다립니다.</strong> 낑낑대거나 뒤척이는 것은 수면 주기가 바뀌는 정상 과정이고, 그대로 다시 잠드는 경우가 많습니다. 자지러지게 우는 건 예외 — 바로 갑니다.</p>
         <p>3주차의 방식을 낮잠 ①(아침잠)에도 적용합니다. 아침잠이 가장 성공하기 쉽습니다. 꿈수유를 계속할지도 이번 주에 결정합니다.</p>
